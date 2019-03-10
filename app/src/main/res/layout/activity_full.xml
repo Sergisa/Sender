@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.FullActivity"
+    android:padding="17dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
+                <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/Biography"
+                    android:id="@+id/title"
+                    android:layout_gravity="center_horizontal|center_vertical"
+
+                    android:textSize="17sp"
+                    android:textColor="@color/abc_search_url_text_pressed" />
+                <TextView
+                    android:layout_weight="0.1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/type"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/Miss" />
+        </LinearLayout>
+
+
+        <ru.sergon.song.HighlightJsView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/codeView"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+                <Button
+                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                    android:id="@+id/qrShow"
+                    android:text="Показать QrCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".05"/>
+                <Button
+                    android:id="@+id/linkCreate"
+                    android:text="Создать ссылку"
+                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+        </LinearLayout>
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/progressBarFull"
+            android:visibility="gone"
+            android:layout_marginTop="10dp"
+            android:indeterminate="false" />
+</LinearLayout>
