@@ -17,6 +17,8 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -30,6 +32,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import ru.sergon.song.HighlightJsView;
 import ru.sergon.song.R;
+import ru.sergon.song.SenderApplication;
 import ru.sergon.song.api.APIController;
 import ru.sergon.song.api.SenderAPI;
 import ru.sergon.song.models.SenderResponse;
@@ -48,11 +51,14 @@ public class FullActivity extends AppCompatActivity implements Callback<SenderRe
     ProgressBar progressBarFull;
     //SenderAPI client;
     SenderAPI sender;
+    SenderApplication app;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         qrcodeDialog = new ImageDialog();
         setContentView(R.layout.activity_full);
+
+        app= (SenderApplication)getApplicationContext();
 
         sender = APIController.getAPI();
         title = findViewById(R.id.title);
@@ -103,61 +109,22 @@ public class FullActivity extends AppCompatActivity implements Callback<SenderRe
             case android.R.id.home:
                 onBackPressed();
                 return true;
+            case R.id.addTags:
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
 
-        return(super.onOptionsItemSelected(item));
     }
-    public Language getLang(String name){
-        Language lang=null;
-        switch(name){
-            case "language-simple":
-                lang=Language.INI;
-                break;
-            case "language-javascript":
-            lang = Language.JAVA_SCRIPT;
-                break;
-            case "language-html":
-                lang = Language.HTML;
-                break;
-            case "language-php":
-                lang = Language.PHP;
-                break;
-            case "language-basic":
-                lang = Language.BASIC;
-                break;
-            case "language-java":
-                lang = Language.JAVA;
-                break;
-            case "language-json":
-                lang = Language.JSON;
-                break;
-            case "language-prolog":
-                lang = Language.PROLOG;
-                break;
-            case "language-csharp":
-                lang = Language.C_SHARP;
-                break;
-            case "language-cpp":
-                lang = Language.C_PLUS_PLUS;
-                break;
-            case "language-python":
-                lang = Language.PYTHON;
-                break;
-            case "language-sql":
-                lang = Language.SQL;
-                break;
-            case "language-css":
-                lang = Language.CSS;
-                break;
-            case "language-pascal":
-                lang = Language.DELPHI;
-                break;
-            case "language-actionscrip":
-                lang = Language.C_SHARP;
-                break;
-        }
-        return lang;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_code_create,menu);
+        return true;
+        //return super.onCreateOptionsMenu(menu);
     }
+
 
     @Override
     public void onResponse(Call<SenderResponse> call, Response<SenderResponse> response) {
@@ -212,7 +179,7 @@ public class FullActivity extends AppCompatActivity implements Callback<SenderRe
         codeView.setShowLineNumbers(true);
         type.setText(post.getLanguageName());
         codeView.setTheme(Theme.ARDUINO_LIGHT);
-        codeView.setHighlightLanguage(getLang(post.getLanguageCode()));
+        codeView.setHighlightLanguage(Language.getLang(post.getLanguageCode()));
         codeView.refresh();
         progressBarFull.setVisibility(ProgressBar.GONE);
 

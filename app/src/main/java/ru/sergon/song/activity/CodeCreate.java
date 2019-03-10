@@ -31,8 +31,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import ru.sergon.song.EditAreaView;
-import ru.sergon.song.JsCallback;
 import ru.sergon.song.R;
 import ru.sergon.song.api.APIController;
 import ru.sergon.song.api.SenderAPI;

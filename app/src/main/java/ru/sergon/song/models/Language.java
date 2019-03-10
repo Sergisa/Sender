@@ -178,5 +178,57 @@ public enum Language {
     public String getName() {
         return className;
     }
+    public static Language getLang(String name) {
+        switch(name){
+            case "language-simple":
+                
+                return INI;
+                
+            case "language-javascript":
+                return JAVA_SCRIPT;
+                
+            case "language-html":
+                return HTML;
+                
+            case "language-php":
+                return PHP;
+                
+            case "language-basic":
+                return BASIC;
+                
+            case "language-java":
+                return JAVA;
+                
+            case "language-json":
+                return JSON;
+                
+            case "language-prolog":
+                return PROLOG;
+                
+            case "language-csharp":
+                return C_SHARP;
+                
+            case "language-cpp":
+                return C_PLUS_PLUS;
+                
+            case "language-python":
+                return PYTHON;
+                
+            case "language-sql":
+                return SQL;
+                
+            case "language-css":
+                return CSS;
+                
+            case "language-pascal":
+                return DELPHI;
+                
+            case "language-actionscrip":
+                return C_SHARP;
+                
+                
+        }
+        return null;
+    }
 
 }
