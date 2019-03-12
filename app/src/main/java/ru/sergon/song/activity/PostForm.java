@@ -22,7 +22,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import ru.sergon.song.R;
 import ru.sergon.song.api.APIController;
-import ru.sergon.song.models.CodeTypeResponse;
+import ru.sergon.song.models.SenderResponse;
+import ru.sergon.song.models.SenderResponse.Type;
 import ru.sergon.song.recycler.onFormSubmittedListener;
 import ru.sergon.song.recycler.onFormValidatedListener;
 
@@ -41,7 +42,7 @@ public class PostForm implements View.OnClickListener {
     private Context context;
     SpinnerCustomAdapter myTypeSelectorAdapter;
 
-    CodeTypeResponse.Type selectedType;
+    Type selectedType;
     private boolean validated=false;
 
     PostForm(View root, Context context) {
@@ -76,21 +77,21 @@ public class PostForm implements View.OnClickListener {
 
         container = rootView.findViewById(R.id.parentFormLayout);
 
-        APIController.getAPI().getTypes().enqueue(new Callback<CodeTypeResponse>() {
+        APIController.getAPI().getTypes().enqueue(new Callback<SenderResponse>() {
             @Override
-            public void onResponse(Call<CodeTypeResponse> call, Response<CodeTypeResponse> response) {
+            public void onResponse(Call<SenderResponse> call, Response<SenderResponse> response) {
                 myTypeSelectorAdapter = new SpinnerCustomAdapter(
                         context,
                         R.layout.row,
                         //android.R.layout.simple_spinner_item,
-                        response.body().getTypeResponse());
+                        response.body().getTypes());
                 typeSelector.setAdapter(myTypeSelectorAdapter);
                 loader.setVisibility(View.INVISIBLE);
                 container.setVisibility(View.VISIBLE);
             }
 
             @Override
-            public void onFailure(Call<CodeTypeResponse> call, Throwable t) {
+            public void onFailure(Call<SenderResponse> call, Throwable t) {
                 Log.d("CodeEdit",t.getLocalizedMessage());
             }
         });
@@ -149,7 +150,7 @@ public class PostForm implements View.OnClickListener {
         }
     }
 
-    CodeTypeResponse.Type getTypeSelection() {
+    SenderResponse.Type getTypeSelection() {
 
         return selectedType;
     }
@@ -170,7 +171,7 @@ public class PostForm implements View.OnClickListener {
         return nameEdit.getText().toString();
     }
 
-    public CodeTypeResponse.Type getSelectedType(){
+    public SenderResponse.Type getSelectedType(){
         return selectedType;
     }
 }

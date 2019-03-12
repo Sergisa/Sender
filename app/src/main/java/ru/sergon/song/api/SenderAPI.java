@@ -9,7 +9,6 @@ import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
-import ru.sergon.song.models.CodeTypeResponse;
 import ru.sergon.song.models.SenderResponse;
 
 
@@ -66,5 +65,5 @@ public interface SenderAPI {
     );
 
     @GET("types")
-    Call<CodeTypeResponse> getTypes();
+    Call<SenderResponse> getTypes();
 }

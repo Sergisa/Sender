@@ -11,12 +11,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import ru.sergon.song.R;
-import ru.sergon.song.models.CodeTypeResponse;
+import ru.sergon.song.models.SenderResponse.Type;
 
-public class SpinnerCustomAdapter extends ArrayAdapter<CodeTypeResponse.Type> {
+public class SpinnerCustomAdapter extends ArrayAdapter<Type> {
     Context context;
-    CodeTypeResponse.Type[] types;
-    SpinnerCustomAdapter(Context context, int resource, CodeTypeResponse.Type[] objects) {
+    Type[] types;
+    SpinnerCustomAdapter(Context context, int resource, Type[] objects) {
         super(context, resource, objects);
         this.context = context;
         this.types = objects;
@@ -29,7 +29,7 @@ public class SpinnerCustomAdapter extends ArrayAdapter<CodeTypeResponse.Type> {
     }
 
     @Override
-    public CodeTypeResponse.Type getItem(int position) {
+    public Type getItem(int position) {
         return types[position];
         //return super.getItem(position);
     }

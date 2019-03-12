@@ -32,32 +32,35 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import ru.sergon.song.R;
+import ru.sergon.song.SenderApplication;
 import ru.sergon.song.api.APIController;
 import ru.sergon.song.api.SenderAPI;
-import ru.sergon.song.models.CodeTypeResponse;
 import ru.sergon.song.models.SenderResponse;
 import ru.sergon.song.recycler.onFormSubmittedListener;
 
 public class CodeCreate extends AppCompatActivity implements View.OnClickListener {
 
     Button goToList;
-
     SenderAPI sender;
-
-
     PostForm form;
     private SenderResponse.Post post;
+    SenderApplication app;
     SpinnerCustomAdapter myTypeSelectorAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_code_create);
+
+
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         sender = APIController.getAPI();
+        app = (SenderApplication)getApplication();
 
-        form = new PostForm (findViewById(R.id.card),getApplicationContext());
+        app.setPlace(this.getLocalClassName());
+        form = new PostForm (findViewById(R.id.card), getApplicationContext());
         form.setOnFormSubmittedListener(new onFormSubmittedListener() {
             @Override
             public void onFormSubmitted(View v) {
@@ -65,11 +68,8 @@ public class CodeCreate extends AppCompatActivity implements View.OnClickListene
                 post = new SenderResponse.Post(
                         form.getName(),
                         form.getText(),
-                        Integer.valueOf(form.getTypeSelection().getId())//specal
+                        form.getTypeSelection()//specal
                 );
-                post.setLink("");
-                post.setTag("");
-
                 sender.addPost(post).enqueue(new Callback<SenderResponse>() {
 
                     @Override
@@ -79,13 +79,15 @@ public class CodeCreate extends AppCompatActivity implements View.OnClickListene
 
                         post.setLanguageName(form.getSelectedType().getLanguageName());
                         post.setLanguageCode(form.getSelectedType().getLanguageCode());
-
+                        post.setId(Integer.valueOf( response.body().getMessage() ));
                         Gson gson = new Gson();
                         String artistString = null;
                         //object to json String
                         artistString = gson.toJson(post);
 
 
+                        Log.d("CodeEdit","Mesasge"+response.raw().message());
+                        Log.d("CodeEdit","Mesasge"+response.raw().toString());
                         Log.d("CodeEdit",artistString);
                         Log.d("CodeEdit","Mesasge"+response.body().getMessage());
 

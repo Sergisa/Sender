@@ -15,7 +15,7 @@ public class MyCustomLayoutManager extends LinearLayoutManager {
     private static final float MILLISECONDS_PER_INCH = 50f;
     private Context mContext;
 
-    public MyCustomLayoutManager(Context context) {
+    MyCustomLayoutManager(Context context) {
         super(context);
         mContext = context;
     }

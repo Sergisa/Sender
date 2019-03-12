@@ -4,6 +4,8 @@ package ru.sergon.song.activity;
  * Created by Sergisa on 25.04.2016.
  */
 
+import android.app.Activity;
+import android.app.Application;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -59,6 +61,7 @@ public class FullActivity extends AppCompatActivity implements Callback<SenderRe
         setContentView(R.layout.activity_full);
 
         app= (SenderApplication)getApplicationContext();
+        app.setPlace(this.getLocalClassName());
 
         sender = APIController.getAPI();
         title = findViewById(R.id.title);
@@ -184,57 +187,48 @@ public class FullActivity extends AppCompatActivity implements Callback<SenderRe
         progressBarFull.setVisibility(ProgressBar.GONE);
 
         try {
-            codeView.setOnContentChangedListener(new HighlightJsView.OnContentChangedListener() {
-                @Override
-                public void onContentChanged() {
-                    Log.d("Debug_full_activity", "onContentChanged");
-                    progressBarFull.setVisibility(ProgressBar.GONE);
-                }
+            codeView.setOnContentChangedListener(() -> {
+                Log.d("Debug_full_activity", "onContentChanged");
+                progressBarFull.setVisibility(ProgressBar.GONE);
             });
 
             setTitle(post.getTitle());
-            qrCaller.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    qrcodeDialog.setLink(getString(R.string.url)+post.getLink());
-                    qrcodeDialog.show(getSupportFragmentManager(), "qr");
-                }
+            qrCaller.setOnClickListener(view -> {
+                qrcodeDialog.setLink(getString(R.string.url)+post.getLink());
+                qrcodeDialog.show(getSupportFragmentManager(), "qr");
             });
-            linkCreate.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(post.hasLink()){
-                        ClipboardManager clipboard = (ClipboardManager) getApplicationContext().getSystemService(Context.CLIPBOARD_SERVICE);
-                        ClipData clip = ClipData.newPlainText("", getString(R.string.url) + post.getLink());
+            linkCreate.setOnClickListener(view -> {
+                if(post.hasLink()){
+                    ClipboardManager clipboard = (ClipboardManager) getApplicationContext().getSystemService(Context.CLIPBOARD_SERVICE);
+                    ClipData clip = ClipData.newPlainText("", getString(R.string.url) + post.getLink());
 
-                        clipboard.setPrimaryClip(clip);
-                        Snackbar.make(view, "LinkCopied", Snackbar.LENGTH_LONG)
-                                .setAction("Open in browser", new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        Intent browserIntent = null;
-                                        if (post.hasLink()) {
-                                            browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url)+ post.getLink().toString()));
-                                        }
-                                        startActivity(browserIntent);
+                    clipboard.setPrimaryClip(clip);
+                    Snackbar.make(view, "LinkCopied", Snackbar.LENGTH_LONG)
+                            .setAction("Open in browser", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent browserIntent = null;
+                                    if (post.hasLink()) {
+                                        browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url)+ post.getLink().toString()));
                                     }
-                                }).show();
-                    }else{
-                        sender.getLink(post.getId()).enqueue(new Callback<SenderResponse>() {
-                            @Override
-                            public void onResponse(Call<SenderResponse> call, Response<SenderResponse> response) {
-                                Log.d("Debug_full_activity", response.raw().toString());
-                                post.setLink(response.body().getResponse()[0].getLink());
-                                linkCreate.setText(post.getLink());
-                                qrCaller.setVisibility(View.VISIBLE);
-                            }
+                                    startActivity(browserIntent);
+                                }
+                            }).show();
+                }else{
+                    sender.getLink(post.getId()).enqueue(new Callback<SenderResponse>() {
+                        @Override
+                        public void onResponse(Call<SenderResponse> call, Response<SenderResponse> response) {
+                            Log.d("Debug_full_activity", response.raw().toString());
+                            post.setLink(response.body().getResponse()[0].getLink());
+                            linkCreate.setText(post.getLink());
+                            qrCaller.setVisibility(View.VISIBLE);
+                        }
 
-                            @Override
-                            public void onFailure(Call<SenderResponse> call, Throwable t) {
+                        @Override
+                        public void onFailure(Call<SenderResponse> call, Throwable t) {
 
-                            }
-                        });
-                    }
+                        }
+                    });
                 }
             });
 

@@ -2,6 +2,7 @@ package ru.sergon.song.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
 
 
 public class SenderResponse {
@@ -10,8 +11,12 @@ public class SenderResponse {
     private String message;
     @SerializedName("status")
     private String status;
+
     @SerializedName("response")
     private Post[] postResponse;
+
+    @SerializedName("types_response")
+    private Type[] typeResponse;
 
     public String getStatus(){
         return this.status;
@@ -23,22 +28,54 @@ public class SenderResponse {
     public Post[] getResponse() {
         return postResponse;
     }
+    public Type[] getTypes() {
+        return typeResponse;
+    }
 
-    public static class Post {
-        @SerializedName("type")
-        private int type;
+    public static class Type {
 
-        @SerializedName("id")
-        private String id;
+
+        @SerializedName("id_type")
+        private int id;
 
         @SerializedName("name_type")
         private String name_type;
 
-        @SerializedName("id_type")
-        private String id_type;
 
         @SerializedName("lang_class")
         private String lang_class;
+
+        @SerializedName("ace_class")
+        private String lang_class_ace;
+        public Type(
+                int id,
+                String typeName,
+                String lang_class
+        ){
+            this.id = id;
+            this.lang_class = lang_class;
+            this.name_type = typeName;
+
+        }
+
+        public String getLanguageName(){
+            return this.name_type;
+        }
+        public String getLanguageCode(){
+            return this.lang_class;
+        }
+        public int getId() {
+            return id;
+        }
+
+
+    }
+    public static class Post {
+        @SerializedName("type")
+        private Type type;
+
+        @SerializedName("id")
+        private int id;
 
         @SerializedName("title")
         private String title;
@@ -58,24 +95,25 @@ public class SenderResponse {
         public Post(
                 String title,
                 String text,
-                int id_type
+                Type type
             ){
             this.title = title;
             this.text = text;
-            this.type = id_type;
+            this.type = type;
 
         }
 
 
         public String getLanguageName(){
-            return this.name_type;
+            return this.type.name_type;
         }
         public String getLanguageCode(){
-            return this.lang_class;
+            return this.type.lang_class;
         }
-        public String getId() {
+        public int getId() {
             return id;
         }
+        public Type getType(){return this.type;}
         public String getText() {
             return text;
         }
@@ -85,13 +123,13 @@ public class SenderResponse {
         public String getLine() {
             return line;
         }
-        /*public String[] getLines(){
+        public String[] getLines(){
             if(this.line!=null) {
                 return this.line.split(",");
             }else{
                 return null;
             }
-        }*/
+        }
         public String getLink() {
             return link;
         }
@@ -108,10 +146,10 @@ public class SenderResponse {
             return !this.tag.equals("");
         }
 
-        public void setType(int id_type){
-            this.type = id_type;
+        public void setType(Type type){
+            this.type = type;
         }
-
+        public void setId(int id){this.id = id;}
         public void setLink(String link) {
             this.link = link;
 
@@ -122,10 +160,10 @@ public class SenderResponse {
             this.tag = s;
         }
         public void setLanguageName(String name){
-            this.name_type=name;
+            this.type.name_type=name;
         }
         public void setLanguageCode(String code){
-            this.lang_class=code;
+            this.type.lang_class=code;
         }
     }
 }

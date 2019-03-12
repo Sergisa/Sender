@@ -25,6 +25,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import ru.sergon.song.R;
+import ru.sergon.song.SenderApplication;
 import ru.sergon.song.api.APIController;
 import ru.sergon.song.api.SenderAPI;
 import ru.sergon.song.models.SenderResponse;
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     RVAdapter adapter;
     SwipeRefreshLayout mSwipeRefreshLayout;
     private ImageDialog qrcodeDialog;
-
+    SenderApplication app;
     SenderAPI sender;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,8 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         setContentView(R.layout.activity_main);
         qrcodeDialog = ImageDialog.newInstance();
         sender = APIController.getAPI();
+        app = (SenderApplication)getApplication();
+        app.setPlace(this.getLocalClassName());
 //      отображаем индикатор загрузки
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(ProgressBar.VISIBLE);
