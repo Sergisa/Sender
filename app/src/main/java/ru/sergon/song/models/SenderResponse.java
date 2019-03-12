@@ -35,7 +35,7 @@ public class SenderResponse {
     public static class Type {
 
 
-        @SerializedName("id_type")
+        @SerializedName("id")
         private int id;
 
         @SerializedName("name_type")
@@ -71,11 +71,15 @@ public class SenderResponse {
 
     }
     public static class Post {
+        @SerializedName("id")
+        private int id;
+
         @SerializedName("type")
         private Type type;
 
-        @SerializedName("id")
-        private int id;
+        //field for POST queries
+        @SerializedName("type_id")
+        private int type_id;
 
         @SerializedName("title")
         private String title;
@@ -84,22 +88,24 @@ public class SenderResponse {
         private String text;
 
         @SerializedName("line")
-        private String line;
+        private String line="";
 
         @SerializedName("tag")
-        private String tag;
+        private String tag="";
 
         @SerializedName("link")
-        private String link;
+        private String link="";
 
-        public Post(
-                String title,
-                String text,
-                Type type
-            ){
+        public Post(String title,String text,Type type){
             this.title = title;
             this.text = text;
             this.type = type;
+
+        }
+        public Post(String title,String text,int type_id){
+            this.title = title;
+            this.text = text;
+            this.type_id = type_id;
 
         }
 
@@ -156,6 +162,9 @@ public class SenderResponse {
         }
 
 
+        public void setTypeId(int id){
+            this.type_id = id;
+        }
         public void setTag(String s) {
             this.tag = s;
         }

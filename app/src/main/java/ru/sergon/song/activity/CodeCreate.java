@@ -70,11 +70,13 @@ public class CodeCreate extends AppCompatActivity implements View.OnClickListene
                         form.getText(),
                         form.getTypeSelection()//specal
                 );
+                Log.d("CodeEdit","sending"+new Gson().toJson(post));
+
                 sender.addPost(post).enqueue(new Callback<SenderResponse>() {
 
                     @Override
                     public void onResponse(Call<SenderResponse> call, Response<SenderResponse> response) {
-
+                        Log.d("CodeEdit","Mesasge"+response.raw().message());
                         Intent intent = new Intent(CodeCreate.this, FullActivity.class);
 
                         post.setLanguageName(form.getSelectedType().getLanguageName());

@@ -14,6 +14,8 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.ActionProvider;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -25,9 +27,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.ShareActionProvider;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+
+import java.lang.reflect.Type;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -54,6 +59,8 @@ public class FullActivity extends AppCompatActivity implements Callback<SenderRe
     //SenderAPI client;
     SenderAPI sender;
     SenderApplication app;
+
+    private ShareActionProvider shareActionProvider;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,7 +119,13 @@ public class FullActivity extends AppCompatActivity implements Callback<SenderRe
             case android.R.id.home:
                 onBackPressed();
                 return true;
-            case R.id.addTags:
+            case R.id.share:
+                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                sharingIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+                sharingIntent.putExtra(Intent.EXTRA_SUBJECT,Uri.parse(getString(R.string.url)+ post.getLink()).toString());
+                sharingIntent.putExtra(Intent.EXTRA_TEXT,Uri.parse(getString(R.string.url)+ post.getLink()).toString());
+                startActivity( Intent.createChooser(sharingIntent,"Куда отправить ссылку?"));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -122,8 +135,8 @@ public class FullActivity extends AppCompatActivity implements Callback<SenderRe
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu_code_create,menu);
+        getMenuInflater().inflate(R.menu.menu_code_create,menu);
+
         return true;
         //return super.onCreateOptionsMenu(menu);
     }
@@ -204,17 +217,16 @@ public class FullActivity extends AppCompatActivity implements Callback<SenderRe
 
                     clipboard.setPrimaryClip(clip);
                     Snackbar.make(view, "LinkCopied", Snackbar.LENGTH_LONG)
-                            .setAction("Open in browser", new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    Intent browserIntent = null;
-                                    if (post.hasLink()) {
-                                        browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url)+ post.getLink().toString()));
-                                    }
-                                    startActivity(browserIntent);
+                            .setAction("Open in browser", v -> {
+                                Intent browserIntent = null;
+                                if (post.hasLink()) {
+                                    browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url)+ post.getLink().toString()));
                                 }
+                                startActivity(browserIntent);
                             }).show();
                 }else{
+                    Log.d("Debug_full_activity", "POST "+new Gson().toJson(post));
+                    Log.d("Debug_full_activity", "sending id: "+post.getId());
                     sender.getLink(post.getId()).enqueue(new Callback<SenderResponse>() {
                         @Override
                         public void onResponse(Call<SenderResponse> call, Response<SenderResponse> response) {

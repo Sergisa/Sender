@@ -81,27 +81,5 @@ public class SpinnerCustomAdapter extends ArrayAdapter<Type> {
 
         return row;
     }
-    /*
-    @Override
-    public View getDropDownView(int position, View convertView, ViewGroup parent) {
-        return getCustomView(position,convertView,parent);
-        //return super.getDropDownView(position, convertView, parent);
-    }
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        return getCustomView(position,convertView,parent);
-        //return super.getView(position, convertView, parent);
-    }
-
-    public View getCustomView(int position, View convertView, ViewGroup parent){
-        LayoutInflater inflater = getLayoutInflater();
-        View row = inflater.inflate(R.layout.row, parent, false);
-
-        TextView tv = row.findViewById(R.id.type_name);
-        tv.setText(types[position].getLanguageName());
-
-        return row;
-    }
-    **/
 }
