@@ -83,7 +83,6 @@ public enum Theme {
     X_CODE("xcode"),
     XT256("xt256"),
     ZENBURN("zenburn");
-
     private final String themeName;
 
     Theme(String themeName) {

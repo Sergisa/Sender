@@ -167,6 +167,7 @@ public enum Language {
     X86_ASSEMBLY("x86asm"),
     XL("xl"),
     X_QUERY("xq"),
+    SIMPLE(""),
     ZEPHIR("zep");
 
     private final String className;
@@ -182,7 +183,7 @@ public enum Language {
         switch(name){
             case "language-simple":
                 
-                return INI;
+                return SIMPLE;
                 
             case "language-javascript":
                 return JAVA_SCRIPT;
