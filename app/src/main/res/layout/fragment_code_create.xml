@@ -7,7 +7,7 @@
 
     xmlns:bind="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context="ru.sergon.song.activity.CodeCreateFragment"
+    tools:context="ru.sergisa.sender.activity.CodeCreateFragment"
     tools:showIn="@layout/activity_code_create">
 
 
@@ -88,7 +88,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <!--
-            <ru.sergon.song.EditAreaView
+            <senderer.EditAreaView
                 android:id="@+id/codeEdit"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"/>

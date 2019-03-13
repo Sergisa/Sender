@@ -1,4 +1,4 @@
-package ru.sergon.song.activity;
+package ru.sergisa.sender.activity;
 
 import android.content.Context;
 import android.graphics.PointF;

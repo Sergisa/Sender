@@ -1,4 +1,4 @@
-package ru.sergon.song.recycler;
+package ru.sergisa.sender.recycler;
 
 import android.view.View;
 

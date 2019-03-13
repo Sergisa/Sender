@@ -1,4 +1,4 @@
-package ru.sergon.song;
+package ru.sergisa.sender;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -10,10 +10,10 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
-import ru.sergon.song.models.Language;
-import ru.sergon.song.models.Theme;
-import ru.sergon.song.utils.FileUtils;
-import ru.sergon.song.utils.SourceUtils;
+import ru.sergisa.sender.models.Language;
+import ru.sergisa.sender.models.Theme;
+import ru.sergisa.sender.utils.FileUtils;
+import ru.sergisa.sender.utils.SourceUtils;
 
 
 import java.io.File;

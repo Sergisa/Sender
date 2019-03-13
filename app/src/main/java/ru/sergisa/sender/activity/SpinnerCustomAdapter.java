@@ -1,4 +1,4 @@
-package ru.sergon.song.activity;
+package ru.sergisa.sender.activity;
 
 
 import android.content.Context;
@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import ru.sergon.song.R;
-import ru.sergon.song.models.SenderResponse.Type;
+import ru.sergisa.sender.R;
+import ru.sergisa.sender.models.SenderResponse.Type;
 
 public class SpinnerCustomAdapter extends ArrayAdapter<Type> {
     Context context;

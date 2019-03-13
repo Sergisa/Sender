@@ -1,4 +1,4 @@
-package ru.sergon.song.activity;
+package ru.sergisa.sender.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,12 +17,12 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import ru.sergon.song.R;
-import ru.sergon.song.SenderApplication;
-import ru.sergon.song.api.APIController;
-import ru.sergon.song.api.SenderAPI;
-import ru.sergon.song.models.SenderResponse;
-import ru.sergon.song.recycler.onFormSubmittedListener;
+import ru.sergisa.sender.R;
+import ru.sergisa.sender.SenderApplication;
+import ru.sergisa.sender.api.APIController;
+import ru.sergisa.sender.api.SenderAPI;
+import ru.sergisa.sender.models.SenderResponse;
+import ru.sergisa.sender.recycler.onFormSubmittedListener;
 
 public class CodeCreate extends AppCompatActivity implements View.OnClickListener {
 

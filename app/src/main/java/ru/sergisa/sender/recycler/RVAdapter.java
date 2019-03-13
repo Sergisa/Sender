@@ -1,4 +1,4 @@
-package ru.sergon.song.recycler;
+package ru.sergisa.sender.recycler;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,9 +16,9 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import ru.sergon.song.R;
-import ru.sergon.song.activity.FullActivity;
-import ru.sergon.song.models.SenderResponse.Post;
+import ru.sergisa.sender.R;
+import ru.sergisa.sender.activity.FullActivity;
+import ru.sergisa.sender.models.SenderResponse.Post;
 
 //адаптер для RecyclerView
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> {

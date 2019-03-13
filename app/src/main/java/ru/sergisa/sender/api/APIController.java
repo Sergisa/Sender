@@ -1,4 +1,4 @@
-package ru.sergon.song.api;
+package ru.sergisa.sender.api;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;

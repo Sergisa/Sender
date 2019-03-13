@@ -1,4 +1,4 @@
-package ru.sergon.song.activity;
+package ru.sergisa.sender.activity;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -15,7 +15,7 @@ import android.widget.ImageView;
 
 import net.glxn.qrgen.android.QRCode;
 
-import ru.sergon.song.R;
+import ru.sergisa.sender.R;
 
 
 /**

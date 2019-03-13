@@ -1,4 +1,4 @@
-package ru.sergon.song.models;
+package ru.sergisa.sender.models;
 
 import com.google.gson.annotations.SerializedName;
 

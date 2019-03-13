@@ -1,6 +1,5 @@
-package ru.sergon.song.activity;
+package ru.sergisa.sender.activity;
 
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-import ru.sergon.song.R;
+import ru.sergisa.sender.R;
 
 /**
  * A placeholder fragment containing a simple view.

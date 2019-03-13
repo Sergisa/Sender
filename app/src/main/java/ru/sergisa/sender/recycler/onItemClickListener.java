@@ -1,6 +1,6 @@
-package ru.sergon.song.recycler;
+package ru.sergisa.sender.recycler;
 
-import ru.sergon.song.models.SenderResponse.Post;
+import ru.sergisa.sender.models.SenderResponse.Post;
 
 /**
  * Created by Sergey on 10/9/2017.

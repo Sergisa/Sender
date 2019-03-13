@@ -1,4 +1,4 @@
-package ru.sergon.song.activity;
+package ru.sergisa.sender.activity;
 
 import android.content.Context;
 import android.support.design.widget.TextInputLayout;
@@ -13,11 +13,11 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import ru.sergon.song.R;
-import ru.sergon.song.models.SenderResponse;
-import ru.sergon.song.models.SenderResponse.Type;
-import ru.sergon.song.recycler.onFormSubmittedListener;
-import ru.sergon.song.recycler.onFormValidatedListener;
+import ru.sergisa.sender.R;
+import ru.sergisa.sender.models.SenderResponse;
+import ru.sergisa.sender.models.SenderResponse.Type;
+import ru.sergisa.sender.recycler.onFormSubmittedListener;
+import ru.sergisa.sender.recycler.onFormValidatedListener;
 
 public class PostForm implements View.OnClickListener {
 

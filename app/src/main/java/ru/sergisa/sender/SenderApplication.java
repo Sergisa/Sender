@@ -1,10 +1,8 @@
-package ru.sergon.song;
+package ru.sergisa.sender;
 
 import android.app.Application;
 import android.content.res.Configuration;
 import android.widget.Toast;
-
-import ru.sergon.song.api.APIController;
 
 public class SenderApplication extends Application {
     String place = "";
