@@ -4,8 +4,6 @@ package ru.sergon.song.activity;
  * Created by Sergisa on 25.04.2016.
  */
 
-import android.app.Activity;
-import android.app.Application;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -14,15 +12,12 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v4.view.ActionProvider;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -32,8 +27,6 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
-import java.lang.reflect.Type;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -42,9 +35,9 @@ import ru.sergon.song.R;
 import ru.sergon.song.SenderApplication;
 import ru.sergon.song.api.APIController;
 import ru.sergon.song.api.SenderAPI;
+import ru.sergon.song.models.Language;
 import ru.sergon.song.models.SenderResponse;
 import ru.sergon.song.models.SenderResponse.Post;
-import ru.sergon.song.models.Language;
 import ru.sergon.song.models.Theme;
 
 
@@ -123,7 +116,7 @@ public class FullActivity extends AppCompatActivity implements Callback<SenderRe
                 Intent sharingIntent = new Intent(Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
                 sharingIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-                sharingIntent.putExtra(Intent.EXTRA_SUBJECT,Uri.parse(getString(R.string.url)+ post.getLink()).toString());
+                sharingIntent.putExtra(Intent.EXTRA_SUBJECT,"Ссылка на код");
                 sharingIntent.putExtra(Intent.EXTRA_TEXT,Uri.parse(getString(R.string.url)+ post.getLink()).toString());
                 startActivity( Intent.createChooser(sharingIntent,"Куда отправить ссылку?"));
                 return true;

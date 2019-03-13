@@ -5,7 +5,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class APIController {
-    //private static Retrofit retrofit=null;
     public static SenderAPI getAPI(){
 
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();

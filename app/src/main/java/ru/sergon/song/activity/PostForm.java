@@ -2,11 +2,7 @@ package ru.sergon.song.activity;
 
 import android.content.Context;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.widget.CardView;
-import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,11 +13,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import ru.sergon.song.R;
-import ru.sergon.song.api.APIController;
 import ru.sergon.song.models.SenderResponse;
 import ru.sergon.song.models.SenderResponse.Type;
 import ru.sergon.song.recycler.onFormSubmittedListener;
@@ -33,33 +25,32 @@ public class PostForm implements View.OnClickListener {
     private onFormValidatedListener onFormValidatedListener;
     private EditText nameEdit,tagsEdit,codeEdit;
     private TextInputLayout nameEditLayout,tagsEditlayout,codeEditlayout;
-    private View rootView;
-    private Button submitButton;
-    ProgressBar loader;
-    LinearLayout container;
-    Spinner typeSelector;
+    private ProgressBar loader;
+    private LinearLayout container;
+    private Spinner typeSelector;
     private List<View> errorViews;
     private Context context;
-    SpinnerCustomAdapter myTypeSelectorAdapter;
+    private SpinnerCustomAdapter myTypeSelectorAdapter;
 
-    Type selectedType;
+    private Type selectedType;
     private boolean validated=false;
 
     PostForm(View root, Context context) {
-        this.rootView = root;
-        nameEdit = rootView.findViewById(R.id.titleEdit);
-        tagsEdit = rootView.findViewById(R.id.tagsEdit);
-        codeEdit = rootView.findViewById(R.id.codeEdit);
+        nameEdit = root.findViewById(R.id.titleEdit);
+        tagsEdit = root.findViewById(R.id.tagsEdit);
+        codeEdit = root.findViewById(R.id.codeEdit);
 
-        loader = rootView.findViewById(R.id.progressBarForm);
+        loader = root.findViewById(R.id.progressBarForm);
 
-        typeSelector = rootView.findViewById(R.id.typeSelector);
+        typeSelector = root.findViewById(R.id.typeSelector);
 
-        submitButton = rootView.findViewById(R.id.saveButton);
+        Button submitButton = root.findViewById(R.id.saveButton);
 
         nameEditLayout = (TextInputLayout) nameEdit.getParent().getParent();
         tagsEditlayout = (TextInputLayout) tagsEdit.getParent().getParent();
         codeEditlayout = (TextInputLayout) tagsEdit.getParent().getParent();
+
+
 
         typeSelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -75,27 +66,25 @@ public class PostForm implements View.OnClickListener {
         nameEditLayout.setErrorEnabled(true);
         submitButton.setOnClickListener(this);
 
-        container = rootView.findViewById(R.id.parentFormLayout);
+        container = root.findViewById(R.id.parentFormLayout);
+    }
 
-        APIController.getAPI().getTypes().enqueue(new Callback<SenderResponse>() {
-            @Override
-            public void onResponse(Call<SenderResponse> call, Response<SenderResponse> response) {
-                myTypeSelectorAdapter = new SpinnerCustomAdapter(
-                        context,
-                        R.layout.row,
-                        //android.R.layout.simple_spinner_item,
-                        response.body().getTypes());
-                typeSelector.setAdapter(myTypeSelectorAdapter);
-                loader.setVisibility(View.INVISIBLE);
-                container.setVisibility(View.VISIBLE);
-            }
+    public void setSpinnerAdapter(SpinnerCustomAdapter adapter){
+        myTypeSelectorAdapter = adapter;
+        typeSelector.setAdapter(myTypeSelectorAdapter);
+    }
 
-            @Override
-            public void onFailure(Call<SenderResponse> call, Throwable t) {
-                Log.d("CodeEdit",t.getLocalizedMessage());
-            }
-        });
 
+    public void setLoading(boolean flag){
+        if(flag){
+            //hide form
+            loader.setVisibility(View.VISIBLE);
+            container.setVisibility(View.INVISIBLE);
+        }else{
+            //show form
+            loader.setVisibility(View.INVISIBLE);
+            container.setVisibility(View.VISIBLE);
+        }
     }
     //itemClickListener.onItemClick();
     private void setViewError(View v, TextInputLayout layout){
@@ -159,11 +148,6 @@ public class PostForm implements View.OnClickListener {
         return this.validated;
     }
 
-    @Override
-    public String toString() {
-        return super.toString();
-    }
-
     public String getText() {
         return this.codeEdit.getText().toString();
     }
@@ -171,7 +155,7 @@ public class PostForm implements View.OnClickListener {
         return nameEdit.getText().toString();
     }
 
-    public SenderResponse.Type getSelectedType(){
+    SenderResponse.Type getSelectedType(){
         return selectedType;
     }
 }

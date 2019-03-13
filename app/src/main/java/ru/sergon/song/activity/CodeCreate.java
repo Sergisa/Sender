@@ -1,28 +1,14 @@
 package ru.sergon.song.activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.button.MaterialButton;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
-
 
 import com.google.gson.Gson;
 
@@ -61,6 +47,22 @@ public class CodeCreate extends AppCompatActivity implements View.OnClickListene
 
         app.setPlace(this.getLocalClassName());
         form = new PostForm (findViewById(R.id.card), getApplicationContext());
+        form.setLoading(true);
+        APIController.getAPI().getTypes().enqueue(new Callback<SenderResponse>() {
+            @Override
+            public void onResponse(Call<SenderResponse> call, Response<SenderResponse> response) {
+                Log.d("CodeEdit",new Gson().toJson(response.body()));
+                form.setSpinnerAdapter(new SpinnerCustomAdapter(getApplicationContext(),R.layout.row,response.body().getTypes()));
+                //form.loadSpiner(response.body().getTypes());
+                form.setLoading(false);
+            }
+
+            @Override
+            public void onFailure(Call<SenderResponse> call, Throwable t) {
+                Log.d("CodeEdit","error while loading spiner data"+t.getLocalizedMessage());
+            }
+        });
+
         form.setOnFormSubmittedListener(new onFormSubmittedListener() {
             @Override
             public void onFormSubmitted(View v) {

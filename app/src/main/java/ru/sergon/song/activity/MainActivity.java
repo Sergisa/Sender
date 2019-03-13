@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
 
         artistsView=(RecyclerView)findViewById(R.id.artistList);
-        MyCustomLayoutManager mLayoutManager = new MyCustomLayoutManager(main);
+        customLayoutManager mLayoutManager = new customLayoutManager(main);
         artistsView.setLayoutManager(mLayoutManager);
         artistsView.setHasFixedSize(true);
         //initializeAdapter();

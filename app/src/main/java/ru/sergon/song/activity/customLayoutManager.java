@@ -11,11 +11,11 @@ import android.util.DisplayMetrics;
  * Created by Sergey on 10/9/2017.
  */
 
-public class MyCustomLayoutManager extends LinearLayoutManager {
+public class customLayoutManager extends LinearLayoutManager {
     private static final float MILLISECONDS_PER_INCH = 50f;
     private Context mContext;
 
-    MyCustomLayoutManager(Context context) {
+    customLayoutManager(Context context) {
         super(context);
         mContext = context;
     }
@@ -30,7 +30,7 @@ public class MyCustomLayoutManager extends LinearLayoutManager {
             @Override
             public PointF computeScrollVectorForPosition
             (int targetPosition) {
-                return MyCustomLayoutManager.this
+                return customLayoutManager.this
                         .computeScrollVectorForPosition(targetPosition);
             }
 

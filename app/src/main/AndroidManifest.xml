@@ -52,11 +52,11 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:scheme="http" />
-                <data android:scheme="code-view://sender.sergisa.ru/" />
+                <data android:scheme="sender://sender.sergisa.ru/" />
                 <data
                     android:host="sender.sergisa.ru"
-                    android:scheme="views" />
-                <data android:scheme="code-view://sender.sergisa.ru/" />
+                    android:scheme="sender" />
+                <data android:scheme="sender://sender.sergisa.ru/" />
             </intent-filter>
         </activity>
     </application>
