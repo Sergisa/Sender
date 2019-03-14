@@ -9,5 +9,8 @@
     <color name="grey">#6c757d</color>
     <color name="primary">#007bff</color>
     <color name="primaryDarken">#0069d9</color>
+    <color name="green">#28a745</color>
+    <color name="primaryBlue">#0062cc</color>
+    <color name="greyDarken">#545d62</color>
 
 </resources>
