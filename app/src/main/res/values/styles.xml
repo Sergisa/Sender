@@ -29,10 +29,12 @@
         <item name="android:paddingStart">5dp</item>
     </style>
 
-    <style name="LinkStyle" parent="Theme.AppCompat.Light">
+
+    <style name="LinkStyleNormal" parent="Theme.AppCompat.Light">
+        <item name="android:colorPressedHighlight">#fff</item>
         <item name="android:paddingRight">6dp</item>
         <item name="android:paddingLeft">6dp</item>
-        <item name="android:textColor">@android:color/holo_green_light</item>
+        <item name="android:textColor">@android:color/holo_purple</item>
     </style>
 
     <style name="MyCardViewStyle" parent="Theme.AppCompat.Light.DarkActionBar">

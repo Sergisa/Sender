@@ -13,4 +13,5 @@
     <string name="button_to_list">View other posts</string>
     <string name="MenuAddTags">Добавить Тэги</string>
     <string name="Share">Отправить</string>
+    <string name="linkButtonText">Создать ссылку</string>
 </resources>

@@ -22,7 +22,8 @@
         <service
             android:name="ru.sergisa.sender.activity.SenderService"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true"
+            android:permission="android.permission.INTERNET" />
 
         <activity
             android:name="ru.sergisa.sender.activity.CodeCreate"
