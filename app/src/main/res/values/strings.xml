@@ -14,4 +14,5 @@
     <string name="MenuAddTags">Добавить Тэги</string>
     <string name="Share">Отправить</string>
     <string name="linkButtonText">Создать ссылку</string>
+    <string name="qrShow">Показать QR код</string>
 </resources>

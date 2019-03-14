@@ -63,6 +63,8 @@
 
 
             <Button
+                android:layout_height="40dp"
+                android:textSize="14sp"
                 android:id="@+id/qrBtn"
                 android:background="@drawable/blue_button"
                 android:textColor="@color/primary_button"
@@ -70,18 +72,18 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Показать QR код" />
+
+                android:text="@string/qrShow" />
 
             <Button
 
                 android:textColor="@color/violet_button"
                 android:id="@+id/linkButton"
-                android:textSize="16sp"
-                android:background="@drawable/violet_button"
+                android:textSize="14sp"
+                android:background="@drawable/grey_button"
 
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_below="@id/code"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
