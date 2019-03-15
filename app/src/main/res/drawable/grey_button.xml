@@ -1,20 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="true">
-        <shape android:shape="rectangle">
-            <solid android:color="@color/greyDarken" />
-        </shape>
+        <layer-list>
+            <item>
+                <!--surround shadow-->
+                <shape android:shape="rectangle">
+                    <padding
+                        android:right="2dp"
+                        android:left="2dp"
+                        android:bottom="2dp"
+                        android:top="2dp"/>
+                    <!--<stroke android:width="4dip" android:color="#40007BFF"/>-->
+                    <corners
+                        android:bottomLeftRadius="6px"
+                        android:bottomRightRadius="6px"
+                        android:topLeftRadius="6px"
+                        android:topRightRadius="6px"/>
+                    <solid android:color="#80828a91" />
+                </shape>
+            </item>
+            <item>
+                <!--main color-->
+                <shape android:shape="rectangle">
+                    <padding
+                        android:right="4dp"
+                        android:left="4dp"
+                        android:bottom="4dp"
+                        android:top="4dp"/>
+
+                    <corners
+                        android:bottomLeftRadius="6px"
+                        android:bottomRightRadius="6px"
+                        android:topLeftRadius="6px"
+                        android:topRightRadius="6px"/>
+                    <solid android:color="@color/greyDarken" />
+                </shape>
+            </item>
+        </layer-list>
     </item>
 
     <item>
-        <shape android:shape="rectangle">
-            <stroke android:color="#4e555b"/>
-            <solid android:color="@color/grey" />
-            <padding
-                android:left="5dp"
-                android:right="5dp"/>
-        </shape>
-
+        <layer-list>
+            <item>
+                <!--surround shadow-->
+                <shape android:shape="rectangle">
+                    <padding
+                        android:right="2dp"
+                        android:left="2dp"
+                        android:bottom="2dp"
+                        android:top="2dp"/>
+                    <!--<stroke android:width="4dip" android:color="#40007BFF"/>-->
+                    <corners
+                        android:bottomLeftRadius="6px"
+                        android:bottomRightRadius="6px"
+                        android:topLeftRadius="6px"
+                        android:topRightRadius="6px"/>
+                    <solid android:color="#00000000" />
+                </shape>
+            </item>
+            <item>
+                <!--main color-->
+                <shape android:shape="rectangle">
+                    <padding
+                        android:right="4dp"
+                        android:left="4dp"
+                        android:bottom="4dp"
+                        android:top="4dp"/>
+                    <!--<stroke android:width="4dip" android:color="#40007BFF"/>-->
+                    <corners
+                        android:bottomLeftRadius="6px"
+                        android:bottomRightRadius="6px"
+                        android:topLeftRadius="6px"
+                        android:topRightRadius="6px"/>
+                    <solid android:color="@color/grey" />
+                </shape>
+            </item>
+        </layer-list>
     </item>
 
 </selector>

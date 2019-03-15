@@ -1,18 +1,22 @@
 <resources>
     <string name="app_name">Sander</string>
-    <string name="Biography">Биография</string>
+    <string name="Biography">Заголовок</string>
     <string name="Miss">Отсутствует</string>
     <string name="Link">Посмотреть в сети:</string>
     <string name="auth">Basic YWRtaW46aXNha292cw==</string>
     <string name="url">http://sender.sergisa.ru/code.php?direct_link=</string>
     <string name="baseAPIUrl">http://cinema.smrtp.ru/book/public/api/</string>
     <string name="title_activity_code_create">CodeCreate</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Настройки</string>
     <string name="button">Click</string>
-    <string name="saveButton">Save Code</string>
-    <string name="button_to_list">View other posts</string>
+
+    <string name="snackbar_text">Ссылка скопирована</string>
+    <string name="snackbar_button_text">Открыть в браузере</string>
+
+    <string name="saveButton">Сохранить</string>
+    <string name="button_to_list">Другие посты</string>
     <string name="MenuAddTags">Добавить Тэги</string>
-    <string name="Share">Отправить</string>
+    <string name="MenuShare">Отправить</string>
     <string name="linkButtonText">Создать ссылку</string>
     <string name="qrShow">Показать QR код</string>
 </resources>

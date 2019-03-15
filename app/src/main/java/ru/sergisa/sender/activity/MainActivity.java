@@ -189,8 +189,8 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         ClipData clip = ClipData.newPlainText(" ", getString(R.string.url) + link);
 
         clipboard.setPrimaryClip(clip);
-        Snackbar.make(v, "LinkCopied", Snackbar.LENGTH_LONG)
-            .setAction("Open in browser", new View.OnClickListener() {
+        Snackbar.make(v, getApplicationContext().getResources().getText(R.string.snackbar_text), Snackbar.LENGTH_LONG)
+            .setAction(getApplicationContext().getResources().getText(R.string.snackbar_button_text), new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent browserIntent = null;

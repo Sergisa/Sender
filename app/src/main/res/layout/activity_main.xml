@@ -9,6 +9,7 @@
     tools:context=".activity.MainActivity">
 
     <ProgressBar
+
         android:id="@+id/progressBar"
         android:visibility="invisible"
         android:layout_width="wrap_content"
@@ -27,10 +28,11 @@
     </android.support.v4.widget.SwipeRefreshLayout>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        app:srcCompat="@android:drawable/arrow_up_float"
+        app:srcCompat="@drawable/ic_up_arrow"
         android:layout_marginLeft="200dp"
         android:layout_marginRight="200dp"
         android:layout_marginBottom="10dp"

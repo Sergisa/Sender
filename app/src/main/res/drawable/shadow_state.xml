@@ -71,6 +71,11 @@
     <!-- Background -->
     <item>
         <shape>
+            <padding
+                android:top="7dp"
+                android:left="7dp"
+                android:right="7dp"
+                android:bottom="7dp"/>
             <solid android:color="@android:color/white" />
 
             <corners android:radius="3dp" />

@@ -17,6 +17,8 @@ android {
         }
     }
     compileOptions {
+
+        android.defaultConfig.vectorDrawables.useSupportLibrary = true
         sourceCompatibility 1.8
         targetCompatibility 1.8
     }

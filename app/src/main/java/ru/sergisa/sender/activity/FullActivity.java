@@ -209,8 +209,8 @@ public class FullActivity extends AppCompatActivity implements Callback<SenderRe
                     ClipData clip = ClipData.newPlainText("", getString(R.string.url) + post.getLink());
 
                     clipboard.setPrimaryClip(clip);
-                    Snackbar.make(view, "LinkCopied", Snackbar.LENGTH_LONG)
-                            .setAction("Open in browser", v -> {
+                    Snackbar.make(view, getApplicationContext().getResources().getText(R.string.snackbar_text), Snackbar.LENGTH_LONG)
+                            .setAction(getApplicationContext().getResources().getText(R.string.snackbar_button_text), v -> {
                                 Intent browserIntent = null;
                                 if (post.hasLink()) {
                                     browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url)+ post.getLink().toString()));
