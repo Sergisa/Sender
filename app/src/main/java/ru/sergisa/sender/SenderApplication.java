@@ -69,7 +69,4 @@ public class SenderApplication extends Application {
     public void toast(String string) {
         Toast.makeText(getApplicationContext(),string,Toast.LENGTH_SHORT).show();
     }
-    /*private Enum{
-
-    }*/
 }
