@@ -34,7 +34,7 @@
                 android:gravity="center"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:text="Code title"
+                android:text="@string/postTitle"
                 android:textColor="@color/abc_input_method_navigation_guard"
                 android:textSize="17sp" />
 
@@ -47,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/style"
-                android:text="Click"
+                android:text="@string/typeText"
                 android:textSize="13sp" />
 
 
@@ -59,7 +59,7 @@
                 android:layout_below="@id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Here must be some" />
+                android:text="@string/text" />
 
 
             <Button

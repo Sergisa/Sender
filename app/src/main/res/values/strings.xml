@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Sander</string>
+    <string name="app_name">Sender</string>
     <string name="Biography">Заголовок</string>
     <string name="Miss">Отсутствует</string>
     <string name="Link">Посмотреть в сети:</string>
@@ -19,4 +19,8 @@
     <string name="MenuShare">Отправить</string>
     <string name="linkButtonText">Создать ссылку</string>
     <string name="qrShow">Показать QR код</string>
+    <string name="postTitle">Заголовок</string>
+    <string name="typeText">Тип</string>
+    <string name="text">Текст поста</string>
+    <string name="ethernet_error">Вы не подключены к интернету</string>
 </resources>

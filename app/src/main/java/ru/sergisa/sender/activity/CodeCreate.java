@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -30,7 +31,7 @@ public class CodeCreate extends AppCompatActivity implements View.OnClickListene
     SenderAPI sender;
     PostForm form;
     private SenderResponse.Post post;
-    SenderApplication app;
+    SenderApplication senderApp;
     SpinnerCustomAdapter myTypeSelectorAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,18 +44,28 @@ public class CodeCreate extends AppCompatActivity implements View.OnClickListene
         setSupportActionBar(toolbar);
 
         sender = APIController.getAPI();
-        app = (SenderApplication)getApplication();
+        senderApp = (SenderApplication)getApplication();
 
-        app.setPlace(this.getLocalClassName());
+        senderApp.setPlace(this.getLocalClassName());
         form = new PostForm (findViewById(R.id.card), getApplicationContext());
-        form.setLoading(true);
+        form.setLoading();
+        if(!senderApp.hasConnection()){
+            senderApp.toast(getResources().getString(R.string.ethernet_error));
+            form.setError(getResources().getString(R.string.ethernet_error));
+            return;
+        }
+
         APIController.getAPI().getTypes().enqueue(new Callback<SenderResponse>() {
             @Override
             public void onResponse(Call<SenderResponse> call, Response<SenderResponse> response) {
+                /*if(response == null){
+                    form.setError(getResources().getString(R.string.ethernet_error));
+                    return;
+                }*/
                 Log.d("CodeEdit",new Gson().toJson(response.body()));
                 form.setSpinnerAdapter(new SpinnerCustomAdapter(getApplicationContext(),R.layout.row,response.body().getTypes()));
                 //form.loadSpiner(response.body().getTypes());
-                form.setLoading(false);
+                form.setReady();
             }
 
             @Override
@@ -124,9 +135,25 @@ public class CodeCreate extends AppCompatActivity implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
+        startActivity(new Intent(CodeCreate.this, MainActivity.class));
+    }
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
 
-        Intent intent = new Intent(CodeCreate.this, MainActivity.class);
-        startActivity(intent);
+        super.onSaveInstanceState(outState);
+        Log.d("App_debug","SaveInstance");
+
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        Log.d("App_debug","RestoreInstance");
+    }
 }

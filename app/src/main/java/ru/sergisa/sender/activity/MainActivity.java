@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.FontRequest;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -39,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     public Context context;
     //PostRequest request;
 
-    RecyclerView artistsView;
+    RecyclerView postsListView;
     public Post[] posts;
     Activity main = this;
     ProgressBar progressBar;
@@ -54,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         qrcodeDialog = ImageDialog.newInstance();
         sender = APIController.getAPI();
         app = (SenderApplication)getApplication();
@@ -100,21 +103,22 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         posts = response.body().getResponse();
 
 
-        artistsView=(RecyclerView)findViewById(R.id.artistList);
+        postsListView=findViewById(R.id.artistList);
+
         customLayoutManager mLayoutManager = new customLayoutManager(main);
-        artistsView.setLayoutManager(mLayoutManager);
-        artistsView.setHasFixedSize(true);
+        postsListView.setLayoutManager(mLayoutManager);
+        postsListView.setHasFixedSize(true);
         //initializeAdapter();
         adapter = new RVAdapter(main, context, posts);
-        artistsView.setAdapter(adapter);
+        postsListView.setAdapter(adapter);
 
-        Log.d("App_debug", Integer.toString( artistsView.getAdapter().getItemCount()));
+        Log.d("App_debug", Integer.toString( postsListView.getAdapter().getItemCount()));
         progressBar.setVisibility(ProgressBar.INVISIBLE);
         upFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                artistsView.smoothScrollToPosition(0);
+                postsListView.smoothScrollToPosition(0);
                 //artistsView.scrollToPosition(0);
             }
         });
@@ -133,13 +137,15 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                                 @Override
                                 public void onResponse(Call<SenderResponse> call, Response<SenderResponse> response) {
 
-                                    ((Button)artistsView.findViewHolderForAdapterPosition(i)
+                                    postsListView.findViewHolderForAdapterPosition(i)
                                             .itemView
-                                            .findViewById(R.id.qrBtn))
+                                            .findViewById(R.id.qrBtn)
                                          .setVisibility(View.VISIBLE);
 
                                     post.setLink(response.body().getResponse()[0].getLink());
                                     ((Button)v).setText(response.body().getResponse()[0].getLink());
+                                    ((Button)v).setTextColor(context.getResources().getColorStateList(R.color.violet_button));
+                                    ((Button)v).setBackgroundResource(R.drawable.grey_outline_button);
                                 }
 
                                 @Override
@@ -205,7 +211,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     protected void onResume() {
         Log.d("App_lifecycle", this.getClass().getSimpleName()+" resume");
         if(openedPost!=0){
-            this.artistsView.scrollToPosition(openedPost);
+            this.postsListView.scrollToPosition(openedPost);
         }
         super.onResume();
     }

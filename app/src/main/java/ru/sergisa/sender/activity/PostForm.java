@@ -31,7 +31,7 @@ public class PostForm implements View.OnClickListener {
     private List<View> errorViews;
     private Context context;
     private SpinnerCustomAdapter myTypeSelectorAdapter;
-
+    private TextView errorText;
     private Type selectedType;
     private boolean validated=false;
 
@@ -50,7 +50,7 @@ public class PostForm implements View.OnClickListener {
         tagsEditlayout = (TextInputLayout) tagsEdit.getParent().getParent();
         codeEditlayout = (TextInputLayout) tagsEdit.getParent().getParent();
 
-
+        errorText = root.findViewById(R.id.ErrorMessage);
 
         typeSelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -63,35 +63,33 @@ public class PostForm implements View.OnClickListener {
 
             }
         });
-        nameEditLayout.setErrorEnabled(true);
         submitButton.setOnClickListener(this);
 
         container = root.findViewById(R.id.parentFormLayout);
     }
 
-    public void setSpinnerAdapter(SpinnerCustomAdapter adapter){
+    void setSpinnerAdapter(SpinnerCustomAdapter adapter){
         myTypeSelectorAdapter = adapter;
         typeSelector.setAdapter(myTypeSelectorAdapter);
     }
 
 
-    public void setLoading(boolean flag){
-        if(flag){
-            //hide form
-            loader.setVisibility(View.VISIBLE);
-            container.setVisibility(View.INVISIBLE);
-        }else{
-            //show form
-            loader.setVisibility(View.INVISIBLE);
-            container.setVisibility(View.VISIBLE);
-        }
+    void setLoading(){
+        setState(FormState.LOADING);
+    }
+    void setError(String error_string) {
+        errorText.setText(error_string);
+        setState(FormState.ERROR);
+    }
+    void setReady(){
+        setState(FormState.READY);
     }
     //itemClickListener.onItemClick();
     private void setViewError(View v, TextInputLayout layout){
 
         ((TextView)v).setCompoundDrawablesWithIntrinsicBounds(0,0,android.R.drawable.ic_dialog_alert,0);
         if(layout != null){
-            nameEditLayout.setError("Поле не должно быть пустым");
+            layout.setError("Поле не должно быть пустым");
         }
     }
 
@@ -100,12 +98,10 @@ public class PostForm implements View.OnClickListener {
         if(nameEdit.getText().toString().equals("")){
             nameEditLayout.setErrorEnabled(true);
             setViewError(nameEdit,nameEditLayout);
-
             good=false;
         }
         if(codeEdit.getText().toString().equals("")){
             codeEditlayout.setErrorEnabled(true);
-
             setViewError(codeEdit,codeEditlayout);
             good=false;
 
@@ -158,4 +154,38 @@ public class PostForm implements View.OnClickListener {
     SenderResponse.Type getSelectedType(){
         return selectedType;
     }
+
+
+    private void setState(FormState state){
+        if(state == FormState.ERROR){
+            container.setVisibility(View.INVISIBLE);
+            errorText.setVisibility(View.VISIBLE);
+            loader.setVisibility(View.INVISIBLE);
+        }else if(state == FormState.LOADING){
+            errorText.setVisibility(View.INVISIBLE);
+            loader.setVisibility(View.VISIBLE);
+            container.setVisibility(View.INVISIBLE);
+        }else if(state == FormState.READY){
+            errorText.setVisibility(View.INVISIBLE);
+            loader.setVisibility(View.INVISIBLE);
+            container.setVisibility(View.VISIBLE);
+        }
+    }
+    public enum FormState {
+        ERROR,
+        LOADING,
+        READY;
+
+        /*private final String stateName;
+
+        FormState(String stateName) {
+            this.stateName = stateName;
+        }
+
+        public String getNameState() {
+            return stateName;
+        }*/
+
+    }
+
 }
