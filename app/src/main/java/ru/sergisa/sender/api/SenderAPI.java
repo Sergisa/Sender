@@ -15,6 +15,8 @@ import ru.sergisa.sender.models.SenderResponse;
 
 public interface SenderAPI {
 
+    String URL = "http://cinema.smrtp.ru/book/public/api/";
+
     @Headers("Authorization: Basic YWRtaW46aXNha292cw==")
     @GET("posts/{id}")
     Call<SenderResponse> getPost(

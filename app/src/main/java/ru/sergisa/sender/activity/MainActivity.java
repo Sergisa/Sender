@@ -7,8 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.FontRequest;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -28,13 +26,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import ru.sergisa.sender.R;
 import ru.sergisa.sender.SenderApplication;
-import ru.sergisa.sender.api.APIController;
 import ru.sergisa.sender.api.SenderAPI;
 import ru.sergisa.sender.models.SenderResponse;
 import ru.sergisa.sender.models.SenderResponse.Post;
 import ru.sergisa.sender.recycler.RVAdapter;
 import ru.sergisa.sender.recycler.onButtonClickListener;
 import ru.sergisa.sender.recycler.onItemClickListener;
+import ru.sergisa.sender.utils.InternetConnectionListener;
 
 public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, Callback<SenderResponse> {
 
@@ -50,7 +48,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     RVAdapter adapter;
     SwipeRefreshLayout mSwipeRefreshLayout;
     private ImageDialog qrcodeDialog;
-    SenderApplication app;
     SenderAPI sender;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +55,8 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         setContentView(R.layout.activity_main);
 
         qrcodeDialog = ImageDialog.newInstance();
-        sender = APIController.getAPI();
-        app = (SenderApplication)getApplication();
-        app.setPlace(this.getLocalClassName());
+        sender = ((SenderApplication)getApplication()).getApiService();
+        // ((SenderApplication)getApplication()).setInternetConnectionListener(this);
 //      отображаем индикатор загрузки
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(ProgressBar.VISIBLE);
@@ -219,6 +215,12 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     //вывод сообщения при нажатии на индикатор загрузки
     public void onProgressClick(View view){
         Toast.makeText(context,"Подождите, идёт загрузка!", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    protected void onPause() {
+        ((SenderApplication)getApplication()).removeInternetConnectionListener();
+        super.onPause();
     }
 }
 

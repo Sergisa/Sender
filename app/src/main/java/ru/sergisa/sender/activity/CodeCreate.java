@@ -6,7 +6,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -20,18 +19,17 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import ru.sergisa.sender.R;
 import ru.sergisa.sender.SenderApplication;
-import ru.sergisa.sender.api.APIController;
 import ru.sergisa.sender.api.SenderAPI;
 import ru.sergisa.sender.models.SenderResponse;
 import ru.sergisa.sender.recycler.onFormSubmittedListener;
+import ru.sergisa.sender.utils.InternetConnectionListener;
 
-public class CodeCreate extends AppCompatActivity implements View.OnClickListener {
+public class CodeCreate extends AppCompatActivity implements View.OnClickListener, InternetConnectionListener {
 
     Button goToList;
     SenderAPI sender;
     PostForm form;
     private SenderResponse.Post post;
-    SenderApplication senderApp;
     SpinnerCustomAdapter myTypeSelectorAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,25 +41,18 @@ public class CodeCreate extends AppCompatActivity implements View.OnClickListene
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        sender = APIController.getAPI();
-        senderApp = (SenderApplication)getApplication();
+        sender = ((SenderApplication)getApplication()).getApiService();
+        ((SenderApplication)getApplication()).setInternetConnectionListener(this);
 
-        senderApp.setPlace(this.getLocalClassName());
         form = new PostForm (findViewById(R.id.card), getApplicationContext());
         form.setLoading();
-        if(!senderApp.hasConnection()){
-            senderApp.toast(getResources().getString(R.string.ethernet_error));
-            form.setError(getResources().getString(R.string.ethernet_error));
-            return;
-        }
 
-        APIController.getAPI().getTypes().enqueue(new Callback<SenderResponse>() {
+
+
+        sender.getTypes().enqueue(new Callback<SenderResponse>() {
             @Override
             public void onResponse(Call<SenderResponse> call, Response<SenderResponse> response) {
-                /*if(response == null){
-                    form.setError(getResources().getString(R.string.ethernet_error));
-                    return;
-                }*/
+
                 Log.d("CodeEdit",new Gson().toJson(response.body()));
                 form.setSpinnerAdapter(new SpinnerCustomAdapter(getApplicationContext(),R.layout.row,response.body().getTypes()));
                 //form.loadSpiner(response.body().getTypes());
@@ -152,8 +143,19 @@ public class CodeCreate extends AppCompatActivity implements View.OnClickListene
     }
 
     @Override
+    protected void onPause() {
+        ((SenderApplication)getApplication()).removeInternetConnectionListener();
+        super.onPause();
+    }
+
+    @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         Log.d("App_debug","RestoreInstance");
+    }
+
+    @Override
+    public void onInternetUnavailable() {
+        form.setError(getResources().getString(R.string.ethernet_error));
     }
 }

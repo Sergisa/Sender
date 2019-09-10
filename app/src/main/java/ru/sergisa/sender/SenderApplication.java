@@ -10,10 +10,23 @@ import android.net.NetworkInfo;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import ru.sergisa.sender.api.SenderAPI;
+import ru.sergisa.sender.utils.InternetConnectionListener;
+import ru.sergisa.sender.utils.NetworkConnectionInterceptor;
 
 
 public class SenderApplication extends Application {
+    private SenderAPI apiService;
+    private InternetConnectionListener mInternetConnectionListener;
+
     String place = "";
 
     @Override
@@ -21,52 +34,59 @@ public class SenderApplication extends Application {
 
         //APIController.getAPI();
         super.onCreate();
-        DataLoader.initInstance();
+
+    }
+
+    public void setInternetConnectionListener(InternetConnectionListener listener) {
+        mInternetConnectionListener = listener;
+    }
+
+    public void removeInternetConnectionListener() {
+        mInternetConnectionListener = null;
+    }
+
+    private boolean isInternetAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
 
-    public boolean hasConnection(){
-        ConnectivityManager cm = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo ethInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        Runtime run = Runtime.getRuntime();
-        if(ethInfo != null && ethInfo.isConnected()){
-            return true;
+    public SenderAPI getApiService() {
+        if (apiService == null) {
+            apiService = provideRetrofit("http://cinema.smrtp.ru/book/public/api/").create(SenderAPI.class);
         }
-        ethInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-        if(ethInfo != null && ethInfo.isConnected()){
-            return true;
-        }
-        ethInfo = cm.getActiveNetworkInfo();
-        if(ethInfo != null && ethInfo.isConnected()){
-            return true;
-        }
-        try{
-
-            int exitValue = run.exec("/system/bin/ping -c 1 8.8.8.8").waitFor();
-            return (exitValue ==0);
-        }catch (IOException e){e.printStackTrace();}
-        catch (InterruptedException e){e.printStackTrace();}
-        return false;
-
-    }
-    @Override
-    public void onTerminate() {
-        super.onTerminate();
+        return apiService;
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-
-        Toast.makeText(getApplicationContext(),"Changed "+place,Toast.LENGTH_LONG).show();
+    private Retrofit provideRetrofit(String url) {
+        return new Retrofit.Builder()
+                .baseUrl(url)
+                .client(provideOkHttpClient())
+                .addConverterFactory(GsonConverterFactory.create(new Gson()))
+                .build();
     }
 
-    public void setPlace(String place) {
-        this.place = place;
+    private OkHttpClient provideOkHttpClient() {
+        OkHttpClient.Builder okhttpClientBuilder = new OkHttpClient.Builder();
+        okhttpClientBuilder.connectTimeout(30, TimeUnit.SECONDS);
+        okhttpClientBuilder.readTimeout(30, TimeUnit.SECONDS);
+        okhttpClientBuilder.writeTimeout(30, TimeUnit.SECONDS);
+        okhttpClientBuilder.addInterceptor(new NetworkConnectionInterceptor() {
+            @Override
+            public boolean isInternetAvailable() {
+                return SenderApplication.this.isInternetAvailable();
+            }
+
+            @Override
+            public void onInternetUnavailable() {
+                if (mInternetConnectionListener != null) {
+                    mInternetConnectionListener.onInternetUnavailable();
+                }
+            }
+        });
+        return okhttpClientBuilder.build();
     }
 
-    public void toast(String string) {
-        Toast.makeText(getApplicationContext(),string,Toast.LENGTH_SHORT).show();
-    }
 }

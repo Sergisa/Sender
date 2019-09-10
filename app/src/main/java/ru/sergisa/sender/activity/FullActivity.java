@@ -33,7 +33,6 @@ import retrofit2.Response;
 import ru.sergisa.sender.HighlightJsView;
 import ru.sergisa.sender.R;
 import ru.sergisa.sender.SenderApplication;
-import ru.sergisa.sender.api.APIController;
 import ru.sergisa.sender.api.SenderAPI;
 import ru.sergisa.sender.models.Language;
 import ru.sergisa.sender.models.SenderResponse;
@@ -61,9 +60,8 @@ public class FullActivity extends AppCompatActivity implements Callback<SenderRe
         setContentView(R.layout.activity_full);
 
         app= (SenderApplication)getApplicationContext();
-        app.setPlace(this.getLocalClassName());
 
-        sender = APIController.getAPI();
+        sender = ((SenderApplication)getApplication()).getApiService();
         title = findViewById(R.id.title);
         codeView = findViewById(R.id.codeView);
         progressBarFull = findViewById(R.id.progressBarFull);
@@ -113,12 +111,16 @@ public class FullActivity extends AppCompatActivity implements Callback<SenderRe
                 onBackPressed();
                 return true;
             case R.id.share:
-                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-                sharingIntent.setType("text/plain");
-                sharingIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-                sharingIntent.putExtra(Intent.EXTRA_SUBJECT,"Ссылка на код");
-                sharingIntent.putExtra(Intent.EXTRA_TEXT,Uri.parse(getString(R.string.url)+ post.getLink()).toString());
-                startActivity( Intent.createChooser(sharingIntent,"Куда отправить ссылку?"));
+                if (post.hasLink()) {
+
+
+                    Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                    sharingIntent.setType("text/plain");
+                    sharingIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+                    sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Ссылка на код");
+                    sharingIntent.putExtra(Intent.EXTRA_TEXT, Uri.parse(getString(R.string.url) + post.getLink()).toString());
+                    startActivity(Intent.createChooser(sharingIntent, "Куда отправить ссылку?"));
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -128,7 +130,11 @@ public class FullActivity extends AppCompatActivity implements Callback<SenderRe
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_code_create,menu);
+
+        getMenuInflater().inflate(R.menu.menu_code_create, menu);
+        if(!post.hasLink()){
+            menu.findItem(R.id.share).setVisible(false);
+        }
 
         return true;
         //return super.onCreateOptionsMenu(menu);
@@ -242,6 +248,13 @@ public class FullActivity extends AppCompatActivity implements Callback<SenderRe
             Log.d("Debug_full_activity", "Null pointer triggered");
 
         }
+    }
+
+
+    @Override
+    protected void onPause() {
+        app.removeInternetConnectionListener();
+        super.onPause();
     }
 
     @Override
