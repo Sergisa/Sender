@@ -24,7 +24,7 @@ public class PostForm implements View.OnClickListener {
     private onFormSubmittedListener onFormSubmittedListener;
     private onFormValidatedListener onFormValidatedListener;
     private EditText nameEdit,tagsEdit,codeEdit;
-    private TextInputLayout nameEditLayout,tagsEditlayout,codeEditlayout;
+
     private ProgressBar loader;
     private LinearLayout container;
     private Spinner typeSelector;
@@ -45,10 +45,6 @@ public class PostForm implements View.OnClickListener {
         typeSelector = root.findViewById(R.id.typeSelector);
 
         Button submitButton = root.findViewById(R.id.saveButton);
-
-        nameEditLayout = (TextInputLayout) nameEdit.getParent().getParent();
-        tagsEditlayout = (TextInputLayout) tagsEdit.getParent().getParent();
-        codeEditlayout = (TextInputLayout) tagsEdit.getParent().getParent();
 
         errorText = root.findViewById(R.id.ErrorMessage);
 
@@ -85,24 +81,23 @@ public class PostForm implements View.OnClickListener {
         setState(FormState.READY);
     }
     //itemClickListener.onItemClick();
-    private void setViewError(View v, TextInputLayout layout){
-
+    private void setViewError(View v){
+        TextInputLayout parentLayout = (TextInputLayout)v.getParent().getParent();
         ((TextView)v).setCompoundDrawablesWithIntrinsicBounds(0,0,android.R.drawable.ic_dialog_alert,0);
-        if(layout != null){
-            layout.setError("Поле не должно быть пустым");
+        if(parentLayout != null){
+            parentLayout.setErrorEnabled(true);
+            parentLayout.setError("Поле не должно быть пустым");
         }
     }
 
     private boolean validateForm(){
         boolean good = true;
         if(nameEdit.getText().toString().equals("")){
-            nameEditLayout.setErrorEnabled(true);
-            setViewError(nameEdit,nameEditLayout);
+            setViewError(nameEdit);
             good=false;
         }
         if(codeEdit.getText().toString().equals("")){
-            codeEditlayout.setErrorEnabled(true);
-            setViewError(codeEdit,codeEditlayout);
+            setViewError(codeEdit);
             good=false;
 
         }
