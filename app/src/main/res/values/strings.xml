@@ -23,4 +23,6 @@
     <string name="typeText">Тип</string>
     <string name="text">Текст поста</string>
     <string name="ethernet_error">Вы не подключены к интернету</string>
+    <string name="snackbar_post_view_text">Посмотреть</string>
+    <string name="button_to_code">перейти к посту</string>
 </resources>

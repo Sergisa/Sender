@@ -166,6 +166,14 @@ public class PostForm implements View.OnClickListener {
             container.setVisibility(View.VISIBLE);
         }
     }
+
+    public void clear() {
+        typeSelector.setSelected(false);
+        nameEdit.setText("");
+        codeEdit.setText("");
+        tagsEdit.setText("");
+    }
+
     public enum FormState {
         ERROR,
         LOADING,

@@ -91,7 +91,7 @@ public class FullActivity extends AppCompatActivity implements Callback<SenderRe
 
             //JSON String from app
             artistString = getIntent().getStringExtra("artist");
-            Log.d("Debug_full_activity",artistString);
+            Log.d("Debug_full_activity","Incoming:"+artistString);
             //JSON Object string to class convert
 
             Gson gson2 = new Gson();
