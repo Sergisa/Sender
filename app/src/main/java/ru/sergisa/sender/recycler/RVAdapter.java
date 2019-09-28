@@ -116,12 +116,12 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> 
             //context.getResources().getColor()
             personViewHolder.linkBtn.setTextColor(context.getResources().getColorStateList(R.color.violet_button));
             personViewHolder.linkBtn.setBackgroundResource(R.drawable.grey_outline_button);
-            personViewHolder.linkBtn.setText(posts[personViewHolder.getAdapterPosition()].getLink());
+            personViewHolder.linkBtn.setText(context.getResources().getText(R.string.linkButtonText));
             personViewHolder.qrBtn.setVisibility(View.VISIBLE);
         }else{
             personViewHolder.linkBtn.setBackgroundResource(R.drawable.grey_button);
             personViewHolder.linkBtn.setTextColor(Color.WHITE);
-            personViewHolder.linkBtn.setText(context.getResources().getText(R.string.linkButtonText));
+            personViewHolder.linkBtn.setText(context.getResources().getText(R.string.linkCreateText));
             personViewHolder.qrBtn.setVisibility(View.INVISIBLE);
         }
 

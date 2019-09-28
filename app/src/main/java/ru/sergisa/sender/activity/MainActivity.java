@@ -32,7 +32,6 @@ import ru.sergisa.sender.models.SenderResponse.Post;
 import ru.sergisa.sender.recycler.RVAdapter;
 import ru.sergisa.sender.recycler.onButtonClickListener;
 import ru.sergisa.sender.recycler.onItemClickListener;
-import ru.sergisa.sender.utils.InternetConnectionListener;
 
 public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, Callback<SenderResponse> {
 
@@ -126,20 +125,21 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                 switch (v.getId()){
                     case R.id.linkButton:
                         if(post.hasLink()) {
-                            CopyLink(v, post.getLink());
+                            copyLink(v, post.getLink());
                         }else{
 
                             sender.getLink(post.getId()).enqueue(new Callback<SenderResponse>() {
                                 @Override
                                 public void onResponse(Call<SenderResponse> call, Response<SenderResponse> response) {
-
+                                    String link = response.body().getResponse()[0].getLink();
                                     postsListView.findViewHolderForAdapterPosition(i)
                                             .itemView
                                             .findViewById(R.id.qrBtn)
                                          .setVisibility(View.VISIBLE);
 
-                                    post.setLink(response.body().getResponse()[0].getLink());
-                                    ((Button)v).setText(response.body().getResponse()[0].getLink());
+                                    post.setLink(link);
+                                    copyLink(v, link);
+                                    //((Button)v).setText(link);
                                     ((Button)v).setTextColor(context.getResources().getColorStateList(R.color.violet_button));
                                     ((Button)v).setBackgroundResource(R.drawable.grey_outline_button);
                                 }
@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     }
 
 
-    public void CopyLink(View v, final String link){
+    public void copyLink(View v, final String link){
         ClipboardManager clipboard = (ClipboardManager) getApplicationContext().getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText(" ", getString(R.string.url) + link);
 

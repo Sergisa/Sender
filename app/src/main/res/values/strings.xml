@@ -17,7 +17,7 @@
     <string name="button_to_list">Другие посты</string>
     <string name="MenuAddTags">Добавить Тэги</string>
     <string name="MenuShare">Отправить</string>
-    <string name="linkButtonText">Создать ссылку</string>
+    <string name="linkButtonText">Скопировать ссылку</string>
     <string name="qrShow">Показать QR код</string>
     <string name="postTitle">Заголовок</string>
     <string name="typeText">Тип</string>
@@ -25,4 +25,5 @@
     <string name="ethernet_error">Вы не подключены к интернету</string>
     <string name="snackbar_post_view_text">Посмотреть</string>
     <string name="button_to_code">перейти к посту</string>
+    <string name="linkCreateText">Создать ссылку</string>
 </resources>

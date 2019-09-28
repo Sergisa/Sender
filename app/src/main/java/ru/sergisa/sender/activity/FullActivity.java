@@ -173,7 +173,7 @@ public class FullActivity extends AppCompatActivity implements Callback<SenderRe
         type.setText(post.getLanguageName());
         progressBarFull.setVisibility(ProgressBar.GONE);
         if(post.hasLink()) {
-            linkCreate.setText(post.getLink());
+            linkCreate.setText(getApplicationContext().getResources().getText(R.string.linkButtonText));
             linkCreate.setVisibility(View.VISIBLE);
         }else {
             qrCaller.setVisibility(View.INVISIBLE);
