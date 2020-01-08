@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    app:fontFamily="@font/montserratregular"
+    android:fontFamily="@font/montserratregular"
 
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".activity.FullActivity"
     android:padding="17dp">
@@ -16,6 +19,9 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp">
                 <TextView
+                    android:fontFamily="@font/montserratmedium"
+                    app:fontFamily="@font/montserratmedium"
+
                     android:layout_weight="1"
                     android:gravity="center"
                     android:layout_width="wrap_content"
@@ -47,7 +53,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
                 <Button
+                    android:fontFamily="@font/montserratmedium"
+                    app:fontFamily="@font/montserratmedium"
                     style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                    android:textColor="@color/design_default_color_primary"
                     android:id="@+id/qrShow"
                     android:text="@string/qrShow"
                     android:layout_width="wrap_content"
@@ -57,9 +66,12 @@
                     android:layout_height="wrap_content"
                     android:layout_weight=".05"/>
                 <Button
+                    android:fontFamily="@font/montserratmedium"
+                    app:fontFamily="@font/montserratmedium"
+                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                    android:textColor="@color/puprle"
                     android:id="@+id/linkCreate"
                     android:text="@string/linkButtonText"
-                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
         </LinearLayout>

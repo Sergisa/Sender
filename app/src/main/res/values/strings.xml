@@ -4,8 +4,8 @@
     <string name="Miss">Отсутствует</string>
     <string name="Link">Посмотреть в сети:</string>
     <string name="auth">Basic YWRtaW46aXNha292cw==</string>
-    <string name="url">http://sender.sergisa.ru/code.php?direct_link=</string>
-    <string name="baseAPIUrl">http://cinema.smrtp.ru/book/public/api/</string>
+    <string name="url">http://sender.sergisa.ru/direct/</string>
+    <string name="baseAPIUrl">http://sender.sergisa.ru/api/</string>
     <string name="title_activity_code_create">CodeCreate</string>
     <string name="action_settings">Настройки</string>
     <string name="button">Click</string>
@@ -18,7 +18,7 @@
     <string name="MenuAddTags">Добавить Тэги</string>
     <string name="MenuShare">Отправить</string>
     <string name="linkButtonText">Скопировать ссылку</string>
-    <string name="qrShow">Показать QR код</string>
+    <string name="qrShow">QR код</string>
     <string name="postTitle">Заголовок</string>
     <string name="typeText">Тип</string>
     <string name="text">Текст поста</string>

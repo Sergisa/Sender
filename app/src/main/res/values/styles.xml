@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:fontFamily">@font/montserratregular</item>
+
     </style>
 
     <style name="CodeAppearence">
@@ -18,6 +20,25 @@
         <item name="android:textColor">@color/dim_foreground_material_dark</item>
     </style>
 
+    <style name="Card" parent="Widget.MaterialComponents.CardView">
+        <item name="android:fontFamily">@font/montserratregular</item>
+    </style>
+
+    <style name="RobotoTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/montserratregular</item>
+    </style>
+    <style name="ButtonStyle" parent="android:Widget.Button">
+        <item name="android:fontFamily">@font/montserratregular</item>
+    </style>
+    <style name="Spinner_View" parent="android:Widget.Spinner">
+        <item name="android:fontFamily">@font/montserratregular</item>
+    </style>
+    <style name="DroopDpwnSpinner" parent="android:Widget.Spinner.DropDown">
+        <item name="android:fontFamily">@font/montserratregular</item>
+    </style>
+    <style name="total" parent="android:Widget">
+        <item name="android:fontFamily">@font/montserratregular</item>
+    </style>
     <style name="langStyle">
         <item name="android:textColor">@android:color/holo_green_dark</item>
         <item name="android:textStyle">bold</item>
@@ -29,6 +50,9 @@
         <item name="android:paddingStart">5dp</item>
     </style>
 
+    <style name="customfontstyle" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/montserratregular</item>
+    </style>
 
     <style name="LinkStyleNormal" parent="Theme.AppCompat.Light">
         <item name="android:colorPressedHighlight">#fff</item>
@@ -45,6 +69,7 @@
         <item name="contentPaddingLeft">16dp</item>
         <item name="contentPaddingRight">16dp</item>
         <item name="cardBackgroundColor">#ffffff</item>
+        <item name="android:fontFamily">@font/montserratregular</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

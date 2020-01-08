@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:fontFamily="@font/montserratregular"
+    app:fontFamily="@font/montserratregular"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:padding="17dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <TextView
+        app:fontFamily="@font/montserratregular"
+        android:fontFamily="@font/montserratregular"
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/type_name"/>
