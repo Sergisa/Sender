@@ -144,7 +144,13 @@ public class SenderResponse {
             return !this.link.equals("");
         }
         public boolean hasTitle(){
-            return !(this.title.equals(""));
+
+            try{
+                return !(this.title.equals(""));
+            }catch (NullPointerException npe){
+                return false;
+
+            }
         }
         public boolean hasTag() {
             return !this.tag.equals("");
