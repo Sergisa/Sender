@@ -79,11 +79,12 @@ public class FullActivity extends AppCompatActivity implements Callback<SenderRe
             // entering by external link
             title.setText(data.getQueryParameter("direct_link"));
 
+            Log.d("DEBUG INCOMING LINK", data.getLastPathSegment());
             /*Map<String,String> obj = new HashMap<>();
             obj.put("filter","link");
             obj.put("val",data.getQueryParameter("direct_link"));
             Call<SenderResponse> call = client.getPost(obj);*/
-            Call<SenderResponse> call = sender.getDirectPost(data.getQueryParameter("direct_link"));
+            Call<SenderResponse> call = sender.getDirectPost(data.getLastPathSegment());
             call.enqueue(this);
 
         }else {
@@ -112,8 +113,6 @@ public class FullActivity extends AppCompatActivity implements Callback<SenderRe
                 return true;
             case R.id.share:
                 if (post.hasLink()) {
-
-
                     Intent sharingIntent = new Intent(Intent.ACTION_SEND);
                     sharingIntent.setType("text/plain");
                     sharingIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
@@ -125,16 +124,15 @@ public class FullActivity extends AppCompatActivity implements Callback<SenderRe
             default:
                 return super.onOptionsItemSelected(item);
         }
-
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.menu_code_create, menu);
-        if(!post.hasLink()){
+        /*if(!post.hasLink()){
             menu.findItem(R.id.share).setVisible(false);
-        }
+        }*/
 
         return true;
         //return super.onCreateOptionsMenu(menu);
@@ -143,7 +141,7 @@ public class FullActivity extends AppCompatActivity implements Callback<SenderRe
 
     @Override
     public void onResponse(Call<SenderResponse> call, Response<SenderResponse> response) {
-        Log.d("Debug_full_activity", "success2");
+        Log.d("full_activity_rsp", response.raw().toString());
         post = response.body().getResponse()[0];
         linkCreate.setText(response.body().getResponse()[0].getLink());
         Log.d("Debug_full_activity", response.body().getResponse()[0].getText());
