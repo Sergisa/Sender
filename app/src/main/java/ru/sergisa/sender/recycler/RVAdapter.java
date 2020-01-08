@@ -112,19 +112,6 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> 
 
     @Override
     public void onBindViewHolder(PersonViewHolder personViewHolder, final int i) {
-        if(posts[i].hasLink()){
-            //context.getResources().getColor()
-            personViewHolder.linkBtn.setTextColor(context.getResources().getColorStateList(R.color.violet_button));
-            personViewHolder.linkBtn.setBackgroundResource(R.drawable.grey_outline_button);
-            personViewHolder.linkBtn.setText(context.getResources().getText(R.string.linkButtonText));
-            personViewHolder.qrBtn.setVisibility(View.VISIBLE);
-        }else{
-            personViewHolder.linkBtn.setBackgroundResource(R.drawable.grey_button);
-            personViewHolder.linkBtn.setTextColor(Color.WHITE);
-            personViewHolder.linkBtn.setText(context.getResources().getText(R.string.linkCreateText));
-            personViewHolder.qrBtn.setVisibility(View.INVISIBLE);
-        }
-
         if (posts[i].hasTitle()){
             personViewHolder.title.setText(posts[personViewHolder.getAdapterPosition()].getTitle());
         }else{
