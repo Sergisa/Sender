@@ -38,7 +38,7 @@ public class ImageDialog extends DialogFragment{
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.image_dialog,null);
         qrCodeImage = (ImageView) view.findViewById(R.id.qrCodeImage);
-        qrCodeImage.setImageBitmap(QRCode.from(link).withSize(250,250).bitmap());
+        qrCodeImage.setImageBitmap(QRCode.from(link).withSize(450,450).bitmap());
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
         builder
