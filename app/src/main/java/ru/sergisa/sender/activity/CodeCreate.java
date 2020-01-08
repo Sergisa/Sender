@@ -97,7 +97,7 @@ public class CodeCreate extends AppCompatActivity implements View.OnClickListene
 
                     @Override
                     public void onResponse(Call<SenderResponse> call, Response<SenderResponse> response) {
-                        jumpToCodeButton.setVisibility(View.VISIBLE);
+                        //jumpToCodeButton.setVisibility(View.VISIBLE);
                         Log.d("CodeEdit","Mesasge"+response.raw().message());
                         Log.d("CodeEdit","Post Response : "+gson.toJson( response.body().getResponse()[0] ));
 
@@ -110,6 +110,7 @@ public class CodeCreate extends AppCompatActivity implements View.OnClickListene
                         Log.d("CodeEdit","Mesasge"+response.body().getMessage());
 
                         CopyLink(v, post.getLink());
+                        jumpToCode();
                     }
 
                     @Override
