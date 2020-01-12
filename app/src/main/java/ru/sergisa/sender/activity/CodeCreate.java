@@ -5,7 +5,6 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -37,7 +36,9 @@ public class CodeCreate extends AppCompatActivity implements View.OnClickListene
     Gson gson;
     PostForm form;
     private SenderResponse.Post post;
-    SpinnerCustomAdapter myTypeSelectorAdapter;
+    Intent incomingIntent;
+    String incomingAction;
+    String incomingIntentType;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,8 +51,6 @@ public class CodeCreate extends AppCompatActivity implements View.OnClickListene
                 jumpToCode();
             }
         });
-
-
 
         goToList = findViewById(R.id.ListView);
         goToList.setOnClickListener(this);
@@ -66,7 +65,9 @@ public class CodeCreate extends AppCompatActivity implements View.OnClickListene
         form = new PostForm (findViewById(R.id.card), getApplicationContext());
         form.setLoading();
 
-
+        incomingIntent = getIntent();
+        incomingAction = incomingIntent.getAction();
+        incomingIntentType = incomingIntent.getType();
 
         sender.getTypes().enqueue(new Callback<SenderResponse>() {
             @Override
@@ -131,6 +132,20 @@ public class CodeCreate extends AppCompatActivity implements View.OnClickListene
 
     }
 
+    void handleIncomingIntent(Intent intent) {
+        String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
+        String sharedTitle = intent.getStringExtra(Intent.EXTRA_TITLE);
+        String sharedSubject = intent.getStringExtra(Intent.EXTRA_SUBJECT);
+
+        if (sharedText != null) {
+            form.setNameEdit(sharedSubject+sharedTitle);
+            form.setCodeEdit(sharedText);
+            Log.d("CodeEdit", "Title:  "+sharedTitle);
+            Log.d("CodeEdit", "Subject:  "+sharedSubject);
+            Log.d("CodeEdit", "Text:  "+sharedText);
+        }
+    }
+
     @Override
     public void onClick(View v) {
         startActivity(new Intent(CodeCreate.this, MainActivity.class));
@@ -156,8 +171,14 @@ public class CodeCreate extends AppCompatActivity implements View.OnClickListene
 
     @Override
     protected void onResume() {
-        form.clear();
-        post=null;
+        if (Intent.ACTION_SEND.equals(incomingAction) && incomingIntentType != null) {
+            if (!"text/plain".equals(incomingIntentType)) {
+                form.clear();
+                post = null;
+            } else {
+                handleIncomingIntent(incomingIntent);
+            }
+        }
         jumpToCodeButton.setVisibility(View.GONE);
         super.onResume();
 

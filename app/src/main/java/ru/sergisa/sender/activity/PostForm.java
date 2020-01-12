@@ -174,6 +174,14 @@ public class PostForm implements View.OnClickListener {
         tagsEdit.setText("");
     }
 
+    public void setNameEdit(String nameEdit) {
+        this.nameEdit.setText(nameEdit);
+    }
+
+    public void setCodeEdit(String codeEdit) {
+        this.codeEdit.setText(codeEdit);
+    }
+
     public enum FormState {
         ERROR,
         LOADING,
