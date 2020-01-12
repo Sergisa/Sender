@@ -75,8 +75,9 @@
 
 
             <Button
-                android:fontFamily="@font/montserratmedium"
-                app:fontFamily="@font/montserratmedium"
+                android:fontFamily="@font/montserrat"
+                app:fontFamily="@font/montserrat"
+
                 style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:textColor="@color/design_default_color_primary"
 
@@ -91,8 +92,8 @@
                 android:text="@string/qrShow" />
 
             <Button
-                android:fontFamily="@font/montserratmedium"
-                app:fontFamily="@font/montserratmedium"
+                android:fontFamily="@font/montserrat"
+                app:fontFamily="@font/montserrat"
                 style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:textColor="@color/puprle"
 

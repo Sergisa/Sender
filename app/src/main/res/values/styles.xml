@@ -60,6 +60,9 @@
         <item name="android:paddingLeft">6dp</item>
         <item name="android:textColor">@android:color/holo_purple</item>
     </style>
+    <style name="custombuttonstyle" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/montserratregular</item>
+    </style>
 
     <style name="MyCardViewStyle" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="cardCornerRadius">2dp</item>
