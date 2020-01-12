@@ -82,19 +82,16 @@
 
                 <data
                     android:host="sender.sergisa.ru"
-                    android:scheme="sender" />
-            </intent-filter>
-
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
+                    android:scheme="sender"
+                    android:pathPattern="/direct_link/.*"
+                    />
                 <data
                     android:host="sender.sergisa.ru"
                     android:scheme="http"
-                    android:pathPattern="/direct/*"/>
+                    android:pathPattern="/direct/.*"/>
             </intent-filter>
+
+
         </activity>
     </application>
 
