@@ -63,20 +63,37 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </activity>
-        <activity android:name="ru.sergisa.sender.activity.FullActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host="sender.sergisa.ru"
+                    android:scheme="http"
+                    android:pathPattern="/index" />
+            </intent-filter>
+        </activity>
+        <activity android:name="ru.sergisa.sender.activity.FullActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="http" />
-                <data android:scheme="sender://sender.sergisa.ru/" />
                 <data
                     android:host="sender.sergisa.ru"
                     android:scheme="sender" />
-                <data android:scheme="sender://sender.sergisa.ru/" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="sender.sergisa.ru"
+                    android:scheme="http"
+                    android:pathPattern="/direct/*"/>
             </intent-filter>
         </activity>
     </application>
