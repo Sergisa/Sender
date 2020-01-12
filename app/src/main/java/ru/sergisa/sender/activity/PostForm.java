@@ -182,6 +182,11 @@ public class PostForm implements View.OnClickListener {
         this.codeEdit.setText(codeEdit);
     }
 
+    public void setPost(SenderResponse.Post post){
+        setNameEdit(post.getTitle());
+        setCodeEdit(post.getText());
+    }
+
     public enum FormState {
         ERROR,
         LOADING,

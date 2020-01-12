@@ -134,15 +134,19 @@ public class CodeCreate extends AppCompatActivity implements View.OnClickListene
 
     void handleIncomingIntent(Intent intent) {
         String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
-        String sharedTitle = intent.getStringExtra(Intent.EXTRA_TITLE);
-        String sharedSubject = intent.getStringExtra(Intent.EXTRA_SUBJECT);
+        String sharedTitle;
+        if(intent.getStringExtra(Intent.EXTRA_TITLE) != null){
+            sharedTitle = intent.getStringExtra(Intent.EXTRA_TITLE);
+        }else if(intent.getStringExtra(Intent.EXTRA_SUBJECT) == null){
+            sharedTitle = intent.getStringExtra(Intent.EXTRA_SUBJECT);
+        }else{
+            sharedTitle = "";
+        }
 
         if (sharedText != null) {
-            form.setNameEdit(sharedSubject+sharedTitle);
+            form.setNameEdit(sharedTitle);
             form.setCodeEdit(sharedText);
-            Log.d("CodeEdit", "Title:  "+sharedTitle);
-            Log.d("CodeEdit", "Subject:  "+sharedSubject);
-            Log.d("CodeEdit", "Text:  "+sharedText);
+
         }
     }
 
