@@ -92,10 +92,10 @@ public class PostForm implements View.OnClickListener {
 
     private boolean validateForm(){
         boolean good = true;
-        if(nameEdit.getText().toString().equals("")){
+        /*if(nameEdit.getText().toString().equals("")){
             setViewError(nameEdit);
             good=false;
-        }
+        }*/
         if(codeEdit.getText().toString().equals("")){
             setViewError(codeEdit);
             good=false;
