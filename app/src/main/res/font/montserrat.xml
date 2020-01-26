@@ -2,20 +2,11 @@
 <font-family xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <font
-        android:fontStyle="normal"
-        android:fontWeight="100"
-        android:font="@font/montserratregular"
-        app:fontStyle="normal"
-        app:fontWeight="100"
-        app:font="@font/montserratregular"
-        />
-    <font
-        android:fontStyle="normal"
-        android:fontWeight="100"
+        app:font="@font/montserratmedium"
         android:font="@font/montserratmedium"
         app:fontStyle="normal"
         app:fontWeight="100"
-        app:font="@font/montserratmedium"
         />
+
 
 </font-family>
