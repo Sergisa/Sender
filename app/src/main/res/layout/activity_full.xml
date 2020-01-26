@@ -10,6 +10,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".activity.FullActivity"
+    android:id="@+id/codePreviewLayout"
     android:padding="17dp">
 
         <LinearLayout
