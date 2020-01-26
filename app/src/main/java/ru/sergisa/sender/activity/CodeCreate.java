@@ -48,7 +48,7 @@ public class CodeCreate extends AppCompatActivity implements View.OnClickListene
         jumpToCodeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                jumpToCode();
+                jumpToCode(true);
             }
         });
 
@@ -110,8 +110,9 @@ public class CodeCreate extends AppCompatActivity implements View.OnClickListene
                         Log.d("CodeEdit",artistString);
                         Log.d("CodeEdit","Mesasge"+response.body().getMessage());
 
-                        CopyLink(v, post.getLink());
-                        jumpToCode();
+                        //CopyLink(v, post.getLink());
+
+                        jumpToCode(true);
                     }
 
                     @Override
@@ -169,7 +170,7 @@ public class CodeCreate extends AppCompatActivity implements View.OnClickListene
         clipboard.setPrimaryClip(clip);
         Snackbar.make(v, "Ссылка скопирована в буфер", Snackbar.LENGTH_LONG)
                 .setAction(getApplicationContext().getResources().getText(R.string.snackbar_post_view_text), v1 -> {
-                    jumpToCode();
+                    jumpToCode(false);
                 }).setActionTextColor(Color.CYAN).show();
     }
 
@@ -205,12 +206,13 @@ public class CodeCreate extends AppCompatActivity implements View.OnClickListene
         form.setError(getResources().getString(R.string.ethernet_error));
     }
 
-    private void jumpToCode(){
+    private void jumpToCode(Boolean snack){
         if(post!=null){
             Intent intent = new Intent(CodeCreate.this, FullActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             //передаём объект как json-строку
             intent.putExtra("artist", gson.toJson(post));
+            intent.putExtra("snack", snack);
             startActivity(intent);
         }
     }

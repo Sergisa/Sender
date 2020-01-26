@@ -21,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ShareActionProvider;
 import android.widget.TextView;
@@ -51,14 +52,14 @@ public class FullActivity extends AppCompatActivity implements Callback<SenderRe
     //SenderAPI client;
     SenderAPI sender;
     SenderApplication app;
-
+    LinearLayout rootLayout;
     private ShareActionProvider shareActionProvider;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         qrcodeDialog = new ImageDialog();
         setContentView(R.layout.activity_full);
-
+        rootLayout = (LinearLayout)findViewById(R.id.codePreviewLayout);
         app= (SenderApplication)getApplicationContext();
 
         sender = ((SenderApplication)getApplication()).getApiService();
@@ -72,8 +73,6 @@ public class FullActivity extends AppCompatActivity implements Callback<SenderRe
         progressBarFull.setVisibility(ProgressBar.VISIBLE);
         Intent i = getIntent();
         Uri data = i.getData();
-
-
 
         if(data!=null){
             // entering by external link
@@ -100,7 +99,15 @@ public class FullActivity extends AppCompatActivity implements Callback<SenderRe
 
             updateViews();
         }
+        if(i.hasExtra("snack") && i.getBooleanExtra("snack", false) ){
 
+            ClipboardManager clipboard = (ClipboardManager) getApplicationContext().getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clip = ClipData.newPlainText("", getString(R.string.url) + post.getLink());
+
+            clipboard.setPrimaryClip(clip);
+            Snackbar.make(rootLayout, getApplicationContext().getResources().getText(R.string.snackbar_text), Snackbar.LENGTH_LONG)
+                    .show();
+        }
 
     }
 
