@@ -51,7 +51,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             <intent-filter>
-                <data android:scheme="sender" />
+                <data android:scheme="sender"
+                    android:host="sender.sergisa.ru"
+                    android:path="/"/>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
