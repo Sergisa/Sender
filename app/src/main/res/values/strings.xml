@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Sender</string>
-    <string name="Biography">Заголовок</string>
+    <string name="qrCodeImage">Заголовок</string>
     <string name="Miss">Отсутствует</string>
     <string name="Link">Посмотреть в сети:</string>
     <string name="auth">Basic YWRtaW46aXNha292cw==</string>
@@ -26,4 +26,7 @@
     <string name="snackbar_post_view_text">Посмотреть</string>
     <string name="button_to_code">перейти к посту</string>
     <string name="linkCreateText">Создать ссылку</string>
+    <string name="codeTitleHint">CodeName</string>
+    <string name="tagsEditHint">Tags</string>
+    <string name="codeEditHint">Code</string>
 </resources>

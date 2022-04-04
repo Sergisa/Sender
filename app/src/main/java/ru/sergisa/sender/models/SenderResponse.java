@@ -16,16 +16,18 @@ public class SenderResponse {
     @SerializedName("types_response")
     private Type[] typeResponse;
 
-    public String getStatus(){
+    public String getStatus() {
         return this.status;
     }
-    public String getMessage(){
+
+    public String getMessage() {
         return this.message;
     }
 
     public Post[] getResponse() {
         return postResponse;
     }
+
     public Type[] getTypes() {
         return typeResponse;
     }
@@ -34,7 +36,7 @@ public class SenderResponse {
 
 
         @SerializedName("id")
-        private int id;
+        private final int id;
 
         @SerializedName("name_type")
         private String name_type;
@@ -45,29 +47,33 @@ public class SenderResponse {
 
         @SerializedName("ace_class")
         private String lang_class_ace;
+
         public Type(
                 int id,
                 String typeName,
                 String lang_class
-        ){
+        ) {
             this.id = id;
             this.lang_class = lang_class;
             this.name_type = typeName;
 
         }
 
-        public String getLanguageName(){
+        public String getLanguageName() {
             return this.name_type;
         }
-        public String getLanguageCode(){
+
+        public String getLanguageCode() {
             return this.lang_class;
         }
+
         public int getId() {
             return id;
         }
 
 
     }
+
     public static class Post {
         @SerializedName("id")
         private int id;
@@ -80,27 +86,28 @@ public class SenderResponse {
         private int type_id;
 
         @SerializedName("title")
-        private String title;
+        private final String title;
 
         @SerializedName("text")
-        private String text;
+        private final String text;
 
         @SerializedName("line")
-        private String line="";
+        private final String line = "";
 
         @SerializedName("tag")
-        private String tag="";
+        private String tag = "";
 
         @SerializedName("link")
-        private String link="";
+        private String link = "";
 
-        public Post(String title,String text,Type type){
+        public Post(String title, String text, Type type) {
             this.title = title;
             this.text = text;
             this.type = type;
 
         }
-        public Post(String title,String text,int type_id){
+
+        public Post(String title, String text, int type_id) {
             this.title = title;
             this.text = text;
             this.type_id = type_id;
@@ -108,75 +115,96 @@ public class SenderResponse {
         }
 
 
-        public String getLanguageName(){
+        public String getLanguageName() {
             return this.type.name_type;
         }
-        public String getLanguageCode(){
+
+        public String getLanguageCode() {
             return this.type.lang_class;
         }
+
         public int getId() {
             return id;
         }
-        public Type getType(){return this.type;}
+
+        public Type getType() {
+            return this.type;
+        }
+
         public String getText() {
             return text;
         }
+
         public String getTitle() {
             return title;
         }
+
         public String getLine() {
             return line;
         }
-        public String[] getLines(){
-            if(this.line!=null) {
+
+        public String[] getLines() {
+            if (this.line != null) {
                 return this.line.split(",");
-            }else{
+            } else {
                 return null;
             }
         }
+
         public String getLink() {
             return link;
         }
+
         public String getTag() {
             return tag;
         }
-        public boolean hasLink(){
+
+        public boolean hasLink() {
             return !this.link.equals("");
         }
-        public boolean hasTitle(){
 
-            try{
+        public boolean hasTitle() {
+
+            try {
                 return !(this.title.equals(""));
-            }catch (NullPointerException npe){
+            } catch (NullPointerException npe) {
                 return false;
 
             }
         }
+
         public boolean hasTag() {
             return !this.tag.equals("");
         }
 
-        public void setType(Type type){
+        public void setType(Type type) {
             this.type = type;
         }
-        public void setId(int id){this.id = id;}
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
         public void setLink(String link) {
             this.link = link;
 
         }
 
 
-        public void setTypeId(int id){
+        public void setTypeId(int id) {
             this.type_id = id;
         }
+
         public void setTag(String s) {
             this.tag = s;
         }
-        public void setLanguageName(String name){
-            this.type.name_type=name;
+
+        public void setLanguageName(String name) {
+            this.type.name_type = name;
         }
-        public void setLanguageCode(String code){
-            this.type.lang_class=code;
+
+        public void setLanguageCode(String code) {
+            this.type.lang_class = code;
         }
     }
 }

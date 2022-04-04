@@ -10,11 +10,6 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 
-/**
- * This Class was created by Patrick J
- * on 09.06.16. For more Details and Licensing
- * have a look at the README.md
- */
 
 public class FileUtils {
 
@@ -28,7 +23,8 @@ public class FileUtils {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
             StringBuilder stringBuilder = new StringBuilder();
             String line;
-            while((line = bufferedReader.readLine()) != null) stringBuilder.append(line).append("\n");
+            while ((line = bufferedReader.readLine()) != null)
+                stringBuilder.append(line).append("\n");
             fileInputStream.close();
             return stringBuilder.toString();
         } catch (IOException io) {
@@ -58,7 +54,8 @@ public class FileUtils {
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
                 StringBuilder stringBuilder = new StringBuilder();
                 String line;
-                while((line = bufferedReader.readLine()) != null) stringBuilder.append(line).append("\n");
+                while ((line = bufferedReader.readLine()) != null)
+                    stringBuilder.append(line).append("\n");
                 bufferedReader.close();
                 return stringBuilder.toString();
             } catch (IOException io) {

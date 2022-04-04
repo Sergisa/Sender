@@ -1,10 +1,5 @@
 package ru.sergisa.sender.models;
 
-/**
- * This Class was created by Patrick J
- * on 09.06.16. For more Details and Licensing
- * have a look at the README.md
- */
 
 public enum Theme {
     AGATE("agate"),

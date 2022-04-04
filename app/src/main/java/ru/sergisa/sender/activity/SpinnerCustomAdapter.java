@@ -15,6 +15,7 @@ import ru.sergisa.sender.models.SenderResponse.Type;
 public class SpinnerCustomAdapter extends ArrayAdapter<Type> {
     Context context;
     Type[] types;
+
     SpinnerCustomAdapter(Context context, int resource, Type[] objects) {
         super(context, resource, objects);
         this.context = context;
@@ -40,14 +41,12 @@ public class SpinnerCustomAdapter extends ArrayAdapter<Type> {
     }
 
 
-
-
     // And here is when the "chooser" is popped up
     // Normally is the same view, but you can customize it if you want
     @Override
     public View getDropDownView(int position, View convertView,
                                 ViewGroup parent) {
-        return getCustomView(position,convertView,parent);
+        return getCustomView(position, convertView, parent);
 
     }
 
@@ -65,10 +64,10 @@ public class SpinnerCustomAdapter extends ArrayAdapter<Type> {
         // And finally return your dynamic (or custom) view for each spinner item
 
         */
-        return getCustomView(position,convertView,parent);
+        return getCustomView(position, convertView, parent);
     }
 
-    public View getCustomView(int position, View convertView, ViewGroup parent){
+    public View getCustomView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(this.context);
         View row = inflater.inflate(R.layout.row, parent, false);
 

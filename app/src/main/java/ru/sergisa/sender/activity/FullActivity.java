@@ -21,8 +21,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.ShareActionProvider;
 import android.widget.TextView;
 
@@ -52,17 +52,18 @@ public class FullActivity extends AppCompatActivity implements Callback<SenderRe
     //SenderAPI client;
     SenderAPI sender;
     SenderApplication app;
-    LinearLayout rootLayout;
+    ScrollView rootLayout;
     private ShareActionProvider shareActionProvider;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         qrcodeDialog = new ImageDialog();
         setContentView(R.layout.activity_full);
-        rootLayout = (LinearLayout)findViewById(R.id.codePreviewLayout);
-        app= (SenderApplication)getApplicationContext();
+        rootLayout = (ScrollView) findViewById(R.id.codePreviewLayout);
+        app = (SenderApplication) getApplicationContext();
 
-        sender = ((SenderApplication)getApplication()).getApiService();
+        sender = ((SenderApplication) getApplication()).getApiService();
         title = findViewById(R.id.title);
         codeView = findViewById(R.id.codeView);
         progressBarFull = findViewById(R.id.progressBarFull);
@@ -74,7 +75,7 @@ public class FullActivity extends AppCompatActivity implements Callback<SenderRe
         Intent i = getIntent();
         Uri data = i.getData();
 
-        if(data!=null){
+        if (data != null) {
             // entering by external link
             title.setText(data.getQueryParameter("direct_link"));
 
@@ -86,20 +87,20 @@ public class FullActivity extends AppCompatActivity implements Callback<SenderRe
             Call<SenderResponse> call = sender.getDirectPost(data.getLastPathSegment());
             call.enqueue(this);
 
-        }else {
+        } else {
             //if entering from app
 
             //JSON String from app
             artistString = getIntent().getStringExtra("artist");
-            Log.d("Debug_full_activity","Incoming:"+artistString);
+            Log.d("Debug_full_activity", "Incoming:" + artistString);
             //JSON Object string to class convert
 
             Gson gson2 = new Gson();
-            post = gson2.fromJson(artistString,Post.class);
+            post = gson2.fromJson(artistString, Post.class);
 
             updateViews();
         }
-        if(i.hasExtra("snack") && i.getBooleanExtra("snack", false) ){
+        if (i.hasExtra("snack") && i.getBooleanExtra("snack", false)) {
 
             ClipboardManager clipboard = (ClipboardManager) getApplicationContext().getSystemService(Context.CLIPBOARD_SERVICE);
             ClipData clip = ClipData.newPlainText("", getString(R.string.url) + post.getLink());
@@ -155,37 +156,21 @@ public class FullActivity extends AppCompatActivity implements Callback<SenderRe
         updateViews();
     }
 
-    /*
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode==KeyEvent.KEYCODE_VOLUME_UP){
-            codeView.setInitialScale(((int) codeView.getScale())+1);
-            return true;
-        }else if(keyCode==KeyEvent.KEYCODE_VOLUME_DOWN) {
-            codeView.setInitialScale(((int) codeView.getScale())-1);
-            return true;
-        }else{
-
-            return super.dispatchKeyEvent(event);
-        }
-        //return super.onKeyDown(keyCode, event);
-    }*/
-
-    private void updateViews(){
-        Log.d("Debug_full_activity","Start updating views");
+    private void updateViews() {
+        Log.d("Debug_full_activity", "Start updating views");
         progressBarFull.setVisibility(ProgressBar.VISIBLE);
 
         type.setText(post.getLanguageName());
         progressBarFull.setVisibility(ProgressBar.GONE);
-        if(post.hasLink()) {
+        if (post.hasLink()) {
             linkCreate.setText(getApplicationContext().getResources().getText(R.string.linkButtonText));
             linkCreate.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             qrCaller.setVisibility(View.INVISIBLE);
         }
         if (post.hasTitle()) {
             title.setText(post.getTitle());
-        }else{
+        } else {
             SpannableString span = new SpannableString("Нет заголовка");
             span.setSpan(new ForegroundColorSpan(Color.GRAY), 0, "Нет заголовка".length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             title.setText(span);
@@ -211,11 +196,11 @@ public class FullActivity extends AppCompatActivity implements Callback<SenderRe
 
             setTitle(post.getTitle());
             qrCaller.setOnClickListener(view -> {
-                qrcodeDialog.setLink(getString(R.string.url)+post.getLink());
+                qrcodeDialog.setLink(getString(R.string.url) + post.getLink());
                 qrcodeDialog.show(getSupportFragmentManager(), "qr");
             });
             linkCreate.setOnClickListener(view -> {
-                if(post.hasLink()){
+                if (post.hasLink()) {
                     ClipboardManager clipboard = (ClipboardManager) getApplicationContext().getSystemService(Context.CLIPBOARD_SERVICE);
                     ClipData clip = ClipData.newPlainText("", getString(R.string.url) + post.getLink());
 
@@ -224,13 +209,13 @@ public class FullActivity extends AppCompatActivity implements Callback<SenderRe
                             .setAction(getApplicationContext().getResources().getText(R.string.snackbar_button_text), v -> {
                                 Intent browserIntent = null;
                                 if (post.hasLink()) {
-                                    browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url)+ post.getLink().toString()));
+                                    browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url) + post.getLink()));
                                 }
                                 startActivity(browserIntent);
                             }).show();
-                }else{
-                    Log.d("Debug_full_activity", "POST "+new Gson().toJson(post));
-                    Log.d("Debug_full_activity", "sending id: "+post.getId());
+                } else {
+                    Log.d("Debug_full_activity", "POST " + new Gson().toJson(post));
+                    Log.d("Debug_full_activity", "sending id: " + post.getId());
                     sender.getLink(post.getId()).enqueue(new Callback<SenderResponse>() {
                         @Override
                         public void onResponse(Call<SenderResponse> call, Response<SenderResponse> response) {
@@ -248,7 +233,7 @@ public class FullActivity extends AppCompatActivity implements Callback<SenderRe
                 }
             });
 
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             e.printStackTrace();
             Log.d("Debug_full_activity", "Null pointer triggered");
 
@@ -265,6 +250,6 @@ public class FullActivity extends AppCompatActivity implements Callback<SenderRe
     @Override
     public void onFailure(Call<SenderResponse> call, Throwable t) {
         Log.d("Debug_full_activity", "failure2");
-        Log.d("Debug_full_activity",t.getMessage() +t.getLocalizedMessage());
+        Log.d("Debug_full_activity", t.getMessage() + t.getLocalizedMessage());
     }
 }

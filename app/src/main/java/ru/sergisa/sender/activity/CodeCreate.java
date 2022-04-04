@@ -1,13 +1,7 @@
 package ru.sergisa.sender.activity;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -31,7 +25,7 @@ import ru.sergisa.sender.utils.InternetConnectionListener;
 
 public class CodeCreate extends AppCompatActivity implements View.OnClickListener, InternetConnectionListener {
 
-    Button goToList, jumpToCodeButton;
+    Button goToList;
     SenderAPI sender;
     Gson gson;
     PostForm form;
@@ -39,30 +33,23 @@ public class CodeCreate extends AppCompatActivity implements View.OnClickListene
     Intent incomingIntent;
     String incomingAction;
     String incomingIntentType;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_code_create);
         gson = new Gson();
-        jumpToCodeButton = findViewById(R.id.jump_to_code);
-        jumpToCodeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                jumpToCode(true);
-            }
-        });
 
         goToList = findViewById(R.id.ListView);
         goToList.setOnClickListener(this);
-        FloatingActionButton fab = findViewById(R.id.fab);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        sender = ((SenderApplication)getApplication()).getApiService();
-        ((SenderApplication)getApplication()).setInternetConnectionListener(this);
+        sender = ((SenderApplication) getApplication()).getApiService();
+        ((SenderApplication) getApplication()).setInternetConnectionListener(this);
 
-        form = new PostForm (findViewById(R.id.card), getApplicationContext());
+        form = new PostForm(findViewById(R.id.card));
         form.setLoading();
 
         incomingIntent = getIntent();
@@ -73,14 +60,14 @@ public class CodeCreate extends AppCompatActivity implements View.OnClickListene
             @Override
             public void onResponse(Call<SenderResponse> call, Response<SenderResponse> response) {
 
-                Log.d("CodeEdit",gson.toJson(response.body()));
-                form.setSpinnerAdapter(new SpinnerCustomAdapter(getApplicationContext(),R.layout.row,response.body().getTypes()));
+                Log.d("CodeEdit", gson.toJson(response.body()));
+                form.setSpinnerAdapter(new SpinnerCustomAdapter(getApplicationContext(), R.layout.row, response.body().getTypes()));
                 form.setReady();
             }
 
             @Override
             public void onFailure(Call<SenderResponse> call, Throwable t) {
-                Log.d("CodeEdit","error while loading spiner data"+t.getLocalizedMessage());
+                Log.d("CodeEdit", "error while loading spinner data" + t.getLocalizedMessage());
             }
         });
 
@@ -90,34 +77,34 @@ public class CodeCreate extends AppCompatActivity implements View.OnClickListene
                 SenderResponse.Post postDataToSend = new SenderResponse.Post(
                         form.getName(),
                         form.getText(),
-                        form.getTypeSelection()//specal
+                        form.getTypeSelection()//special
                 );
-                Log.d("CodeEdit","sending" + gson.toJson(post));
+                Log.d("CodeEdit", "sending" + gson.toJson(post));
 
                 sender.addPost(postDataToSend).enqueue(new Callback<SenderResponse>() {
 
                     @Override
                     public void onResponse(Call<SenderResponse> call, Response<SenderResponse> response) {
                         //jumpToCodeButton.setVisibility(View.VISIBLE);
-                        Log.d("CodeEdit","Mesasge"+response.raw().message());
-                        Log.d("CodeEdit","Post Response : "+gson.toJson( response.body().getResponse()[0] ));
+                        Log.d("CodeEdit", "Message" + response.raw().message());
+                        Log.d("CodeEdit", "Post Response : " + gson.toJson(response.body().getResponse()[0]));
 
                         post = response.body().getResponse()[0];
-                        String artistString  = gson.toJson(post);
+                        String artistString = gson.toJson(post);
 
-                        Log.d("CodeEdit","Mesasge"+response.raw().message());
-                        Log.d("CodeEdit","Mesasge"+response.raw().toString());
-                        Log.d("CodeEdit",artistString);
-                        Log.d("CodeEdit","Mesasge"+response.body().getMessage());
+                        Log.d("CodeEdit", "Message" + response.raw().message());
+                        Log.d("CodeEdit", "Message" + response.raw().toString());
+                        Log.d("CodeEdit", artistString);
+                        Log.d("CodeEdit", "Message" + response.body().getMessage());
 
                         //CopyLink(v, post.getLink());
 
-                        jumpToCode(true);
+                        jumpToCode();
                     }
 
                     @Override
                     public void onFailure(Call<SenderResponse> call, Throwable t) {
-                        Log.d("CodeEdit",t.getMessage());
+                        Log.d("CodeEdit", t.getMessage());
                         Toast.makeText(getApplicationContext(), "Отправка не удалась", Toast.LENGTH_LONG).show();
                         t.printStackTrace();
                     }
@@ -136,11 +123,11 @@ public class CodeCreate extends AppCompatActivity implements View.OnClickListene
     void handleIncomingIntent(Intent intent) {
         String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
         String sharedTitle;
-        if(intent.getStringExtra(Intent.EXTRA_TITLE) != null){
+        if (intent.getStringExtra(Intent.EXTRA_TITLE) != null) {
             sharedTitle = intent.getStringExtra(Intent.EXTRA_TITLE);
-        }else if(intent.getStringExtra(Intent.EXTRA_SUBJECT) == null){
+        } else if (intent.getStringExtra(Intent.EXTRA_SUBJECT) == null) {
             sharedTitle = intent.getStringExtra(Intent.EXTRA_SUBJECT);
-        }else{
+        } else {
             sharedTitle = "";
         }
 
@@ -155,23 +142,13 @@ public class CodeCreate extends AppCompatActivity implements View.OnClickListene
     public void onClick(View v) {
         startActivity(new Intent(CodeCreate.this, MainActivity.class));
     }
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
 
         super.onSaveInstanceState(outState);
-        Log.d("App_debug","SaveInstance");
+        Log.d("App_debug", "SaveInstance");
 
-    }
-
-    public void CopyLink(View v, final String link){
-        ClipboardManager clipboard = (ClipboardManager) getApplicationContext().getSystemService(Context.CLIPBOARD_SERVICE);
-        ClipData clip = ClipData.newPlainText(" ", getString(R.string.url) + link);
-
-        clipboard.setPrimaryClip(clip);
-        Snackbar.make(v, "Ссылка скопирована в буфер", Snackbar.LENGTH_LONG)
-                .setAction(getApplicationContext().getResources().getText(R.string.snackbar_post_view_text), v1 -> {
-                    jumpToCode(false);
-                }).setActionTextColor(Color.CYAN).show();
     }
 
     @Override
@@ -184,21 +161,20 @@ public class CodeCreate extends AppCompatActivity implements View.OnClickListene
                 handleIncomingIntent(incomingIntent);
             }
         }
-        jumpToCodeButton.setVisibility(View.GONE);
         super.onResume();
 
     }
 
     @Override
     protected void onPause() {
-        ((SenderApplication)getApplication()).removeInternetConnectionListener();
+        ((SenderApplication) getApplication()).removeInternetConnectionListener();
         super.onPause();
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        Log.d("App_debug","RestoreInstance");
+        Log.d("App_debug", "RestoreInstance");
     }
 
     @Override
@@ -206,13 +182,13 @@ public class CodeCreate extends AppCompatActivity implements View.OnClickListene
         form.setError(getResources().getString(R.string.ethernet_error));
     }
 
-    private void jumpToCode(Boolean snack){
-        if(post!=null){
+    private void jumpToCode() {
+        if (post != null) {
             Intent intent = new Intent(CodeCreate.this, FullActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             //передаём объект как json-строку
             intent.putExtra("artist", gson.toJson(post));
-            intent.putExtra("snack", snack);
+            intent.putExtra("snack", true);
             startActivity(intent);
         }
     }

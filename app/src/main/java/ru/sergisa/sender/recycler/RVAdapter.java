@@ -23,14 +23,14 @@ import ru.sergisa.sender.models.SenderResponse.Post;
 //адаптер для RecyclerView
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> {
 
-    static class PersonViewHolder extends RecyclerView.ViewHolder{
+    static class PersonViewHolder extends RecyclerView.ViewHolder {
 
         TextView title;
         TextView type;
         TextView text;
 
         TextView line;
-        Button linkBtn,qrBtn;
+        Button linkBtn, qrBtn;
 
         PersonViewHolder(final View itemView) {
             super(itemView);
@@ -44,26 +44,26 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> 
         public void setLinkBtnText(String link) {
             this.linkBtn.setText(link);
         }
+
         public void showQrBtn(String link) {
             this.qrBtn.setVisibility(View.VISIBLE);
         }
     }
 
-    private Post[] posts;
-    private Activity main;
-    private Context context;
-    private Intent intent;
+    private final Post[] posts;
+    private final Activity main;
+    private final Context context;
+    private final Intent intent;
 
     private onItemClickListener itemClickListener;
     private onButtonClickListener buttonClickListener;
 
-    public RVAdapter(Activity main,Context context, Post[] posts){
+    public RVAdapter(Activity main, Context context, Post[] posts) {
         this.posts = posts;
         this.main = main;
         this.context = context;
         intent = new Intent(context, FullActivity.class);
     }
-
 
 
     @Override
@@ -79,7 +79,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> 
         View.OnClickListener cardClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                itemClickListener.onItemClick(posts[pvh.getAdapterPosition()],pvh.getAdapterPosition());
+                itemClickListener.onItemClick(posts[pvh.getAdapterPosition()], pvh.getAdapterPosition());
                 //onItemClickListener.onItemClick(posts[i]);
             }
         };
@@ -112,9 +112,9 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> 
 
     @Override
     public void onBindViewHolder(PersonViewHolder personViewHolder, final int i) {
-        if (posts[i].hasTitle()){
+        if (posts[i].hasTitle()) {
             personViewHolder.title.setText(posts[personViewHolder.getAdapterPosition()].getTitle());
-        }else{
+        } else {
             SpannableString span = new SpannableString("Нет заголовка");
             span.setSpan(new ForegroundColorSpan(Color.GRAY), 0,
                     "Нет заголовка".length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -135,13 +135,15 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> 
     public onItemClickListener getOnItemClickListener() {
         return itemClickListener;
     }
+
     public void setOnItemClickListener(onItemClickListener onItemClickListener) {
         this.itemClickListener = onItemClickListener;
-}
+    }
 
-    public void setOnButtonClickListener(onButtonClickListener onButtonClickListener){
+    public void setOnButtonClickListener(onButtonClickListener onButtonClickListener) {
         this.buttonClickListener = onButtonClickListener;
     }
+
     public onButtonClickListener getOnButtonClickListener() {
         return buttonClickListener;
     }

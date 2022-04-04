@@ -92,4 +92,9 @@
     <style name="Progress">
         <item name="colorAccent">@color/purple</item>
     </style>
+
+    <style name="externalEditorButton" parent="Widget.AppCompat.Button.Borderless.Colored">
+        <item name="android:minWidth">14dp</item>
+        <item name="tint">@color/colorAccent</item>
+    </style>
 </resources>

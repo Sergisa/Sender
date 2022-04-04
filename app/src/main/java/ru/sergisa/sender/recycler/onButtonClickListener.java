@@ -9,5 +9,5 @@ import ru.sergisa.sender.models.SenderResponse.Post;
  */
 
 public interface onButtonClickListener {
-    public void onButtonClick(View v, Post post, int i);
+    void onButtonClick(View v, Post post, int i);
 }

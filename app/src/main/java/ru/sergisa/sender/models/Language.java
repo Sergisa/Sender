@@ -1,11 +1,5 @@
 package ru.sergisa.sender.models;
 
-/**
- * This Class was created by Patrick J
- * on 09.06.16. For more Details and Licensing
- * have a look at the README.md
- */
-
 public enum Language {
     AUTO_DETECT(null),
     DISABLE_HIGHLIGHT("nohighlight"),
@@ -88,7 +82,7 @@ public enum Language {
     JAVA("java"),
     JAVA_SCRIPT("javascript"),
     LASSO("lasso"),
-	LEAF("leaf"),
+    LEAF("leaf"),
     LESS("less"),
     LDIF("ldif"),
     LISP("lisp"),
@@ -107,7 +101,7 @@ public enum Language {
     MOJOLICIOUS("mojolicious"),
     MONKEY("monkey"),
     MOONSCRIPT("moonscript"),
-	N1QL("n1ql"),
+    N1QL("n1ql"),
     NSIS("nsis"),
     NGINX("nginx"),
     NIMROD("nimrod"),
@@ -179,55 +173,56 @@ public enum Language {
     public String getName() {
         return className;
     }
+
     public static Language getLang(String name) {
-        switch(name){
+        switch (name) {
             case "language-simple":
-                
+
                 return SIMPLE;
-                
+
             case "language-javascript":
                 return JAVA_SCRIPT;
-                
+
             case "language-html":
                 return HTML;
-                
+
             case "language-php":
                 return PHP;
-                
+
             case "language-basic":
                 return BASIC;
-                
+
             case "language-java":
                 return JAVA;
-                
+
             case "language-json":
                 return JSON;
-                
+
             case "language-prolog":
                 return PROLOG;
-                
+
             case "language-csharp":
                 return C_SHARP;
-                
+
             case "language-cpp":
                 return C_PLUS_PLUS;
-                
+
             case "language-python":
                 return PYTHON;
-                
+
             case "language-sql":
                 return SQL;
-                
+
             case "language-css":
                 return CSS;
-                
+
             case "language-pascal":
                 return DELPHI;
-                
+
             case "language-actionscrip":
                 return C_SHARP;
-                
-                
+
+
         }
         return null;
     }

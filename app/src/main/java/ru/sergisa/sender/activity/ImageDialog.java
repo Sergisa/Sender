@@ -22,13 +22,14 @@ import ru.sergisa.sender.R;
  * Created by Sergey on 10/10/2017.
  */
 
-public class ImageDialog extends DialogFragment{
+public class ImageDialog extends DialogFragment {
     ImageView qrCodeImage;
-    String link="(NONE)";
+    String link = "(NONE)";
 
     static ImageDialog newInstance() {
         return new ImageDialog();
     }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -36,9 +37,9 @@ public class ImageDialog extends DialogFragment{
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Get the layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.image_dialog,null);
+        View view = inflater.inflate(R.layout.image_dialog, null);
         qrCodeImage = (ImageView) view.findViewById(R.id.qrCodeImage);
-        qrCodeImage.setImageBitmap(QRCode.from(link).withSize(450,450).bitmap());
+        qrCodeImage.setImageBitmap(QRCode.from(link).withSize(450, 450).bitmap());
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
         builder
@@ -98,7 +99,7 @@ public class ImageDialog extends DialogFragment{
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
-    public void setLink(String link){
+    public void setLink(String link) {
         this.link = link;
     }
 }

@@ -1,87 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    app:fontFamily="@font/montserratregular"
-    android:fontFamily="@font/montserratregular"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
 
-    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/codePreviewLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fontFamily="@font/montserratregular"
     android:orientation="vertical"
-    tools:context=".activity.FullActivity"
-    android:id="@+id/codePreviewLayout"
-    android:padding="17dp">
+    android:padding="17dp"
+    app:fontFamily="@font/montserratregular"
+    tools:context=".activity.FullActivity">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp">
-                <TextView
-                    android:fontFamily="@font/montserratmedium"
-                    app:fontFamily="@font/montserratmedium"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/headerBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="17dp">
 
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="@string/Biography"
-                    android:id="@+id/title"
-                    android:layout_gravity="center_horizontal|center_vertical"
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_weight="1"
+            android:fontFamily="@font/montserratmedium"
+            android:gravity="center"
+            android:text="@string/qrCodeImage"
+            android:textColor="@color/abc_search_url_text_pressed"
+            android:textSize="17sp"
+            app:fontFamily="@font/montserratmedium"
 
-                    android:textSize="17sp"
-                    android:textColor="@color/abc_search_url_text_pressed" />
-                <TextView
-                    android:layout_weight="0.1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:id="@+id/type"
-                    android:layout_gravity="center_horizontal|center_vertical"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:text="@string/Miss" />
-        </LinearLayout>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/type"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_weight="0.1"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="@string/Miss"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ru.sergisa.sender.HighlightJsView
-            android:layout_weight="1"
+            android:id="@+id/codeView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/codeView"/>
-        <LinearLayout
-            android:orientation="horizontal"
+            android:layout_marginVertical="10dp"
+            android:layout_weight="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title" />
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/bottomNavigation"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-                <Button
-                    android:fontFamily="@font/montserratmedium"
-                    app:fontFamily="@font/montserratmedium"
-                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                    android:textColor="@color/design_default_color_primary"
-                    android:id="@+id/qrShow"
-                    android:text="@string/qrShow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".05"/>
-                <Button
-                    android:fontFamily="@font/montserratmedium"
-                    app:fontFamily="@font/montserratmedium"
-                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                    android:textColor="@color/puprle"
-                    android:id="@+id/linkCreate"
-                    android:text="@string/linkButtonText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/codeView">
+
+            <Button
+                android:id="@+id/qrShow"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserratmedium"
+                android:text="@string/qrShow"
+                android:textColor="@color/design_default_color_primary"
+                app:fontFamily="@font/montserratmedium"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/linkCreate"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserratmedium"
+                android:text="@string/linkButtonText"
+                android:textColor="@color/puprle"
+                app:fontFamily="@font/montserratmedium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
         <ProgressBar
+            android:id="@+id/progressBarFull"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:id="@+id/progressBarFull"
+            android:indeterminate="false"
             android:visibility="gone"
-            android:layout_marginTop="10dp"
-            android:indeterminate="false" />
-</LinearLayout>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+
+</ScrollView>
